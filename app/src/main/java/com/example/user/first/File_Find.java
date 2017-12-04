@@ -173,7 +173,12 @@ public class File_Find extends AppCompatActivity {
         for(int i=0;i<itemFiles.size();i++)
         {
             // 여기서 listview 에 넣는데 확장자 명에 따라 그림을 구분 해줘야됨.
-            adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),itemFiles.get(i),pathFiles.get(i));
+            if(itemFiles.get(i).endsWith(".txt"))
+            adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
+            else if(itemFiles.get(i).endsWith(".png") || itemFiles.get(i).endsWith(".jpg"))
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.img),itemFiles.get(i),pathFiles.get(i));
+            else
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),itemFiles.get(i),pathFiles.get(i));
         }
 
         adapter.notifyDataSetChanged();

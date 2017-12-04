@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
+//뒤로가기 눌렀을때 전에 있던 폴더로 돌아가기 만들고 싶은데 일단 보류
 public class File_Find extends AppCompatActivity {
     private String root = Environment.getExternalStorageDirectory().getAbsolutePath();  //최상위 폴더
     private String CurPath = Environment.getExternalStorageDirectory().getAbsolutePath();   //현재 탐색하는 폴더
@@ -68,16 +69,17 @@ public class File_Find extends AppCompatActivity {
             pathFiles.add(file.getParent());
         }
         //찾아낸 파일 및 폴더 리스트를 배열에다가 정리.
-      for(int i=0; i<files.length;i++)
-        {
-           File f = files[i];
-           pathFiles.add(f.getPath());
+      for(int i=0; i<files.length;i++) {
+          File f = files[i];
+          pathFiles.add(f.getPath());
 
-           if(file.isDirectory())
-               itemFiles.add(f.getName()+"/");
-           else
-               itemFiles.add(f.getName());
-        }
+          if (f.isDirectory())
+              itemFiles.add(f.getName() + "/");
+          else {
+              //Toast.makeText(getApplicationContext(), f.getName(), Toast.LENGTH_LONG).show();
+              itemFiles.add(f.getName());
+          }
+      }
         Move_folder();
     }
     private void itemClick(String name, String path)
@@ -93,7 +95,7 @@ public class File_Find extends AppCompatActivity {
                 //데이터 정보가 바뀔시 리스트 뷰 다시 재정비.
                 getDir(CurPath);
 
-            }else{
+            }else{  //요 부분 없어도 되는 부분.
                 new AlertDialog.Builder(this)
                         .setTitle("["+file.getName() + "] folder can't be read!")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -115,12 +117,12 @@ public class File_Find extends AppCompatActivity {
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//확인 버튼 누르면 이 텍스트 파일을 읽어 와야됨.
+                        //확인 버튼 누르면 이 텍스트 파일을 읽어 와야됨.
                         //다른 액티비티에서 읽어 올려고 함.
                         Intent intent = new Intent(
                                 getApplicationContext(), File_Read.class);
-                        intent.putExtra("File_Name", Name);
-                        intent.putExtra("Filee_Path", Path);
+                        //파일 경로 전송.
+                        intent.putExtra("File_Path", Path);
                         startActivity(intent);
                         finish();
                     }
@@ -141,7 +143,7 @@ public class File_Find extends AppCompatActivity {
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//확인 버튼 누르면 이 epbu 파일을 읽어 와야됨.
+                //확인 버튼 누르면 이 epbu 파일을 읽어 와야됨.
                     }
                 }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
@@ -174,13 +176,12 @@ public class File_Find extends AppCompatActivity {
         {
             // 여기서 listview 에 넣는데 확장자 명에 따라 그림을 구분 해줘야됨.
             if(itemFiles.get(i).endsWith(".txt"))
-            adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
             else if(itemFiles.get(i).endsWith(".png") || itemFiles.get(i).endsWith(".jpg"))
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.img),itemFiles.get(i),pathFiles.get(i));
             else
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),itemFiles.get(i),pathFiles.get(i));
         }
-
         adapter.notifyDataSetChanged();
     }
 

@@ -18,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Request_Permission" />
+        <activity android:name=".File_Find" />
+        <activity android:name=".File_Read"/>
     </application>
 
 </manifest>

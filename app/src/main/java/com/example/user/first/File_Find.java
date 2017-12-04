@@ -35,8 +35,8 @@ public class File_Find extends AppCompatActivity {
 
         getDir(root);
 
-    //    adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"First","설명");
-    //    adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"Second","설명");
+        //adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"First","설명");
+        //adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"Second","설명");
 
         //listview 아이템 눌렀을 경우 실행 될 행동.
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,7 +56,6 @@ public class File_Find extends AppCompatActivity {
         File[] files = file.listFiles();
         if( files == null) {
             Toast.makeText(getApplicationContext(), dirPath, Toast.LENGTH_LONG).show();
-
             return;
         }
         //ArrayList 내용을 다시 채우기 위하여 비움. (보여주는 리스트 지우는 거라 보면 됨)
@@ -72,12 +71,12 @@ public class File_Find extends AppCompatActivity {
       for(int i=0; i<files.length;i++)
         {
            File f = files[i];
-           pathFiles.add(file.getPath());
+           pathFiles.add(f.getPath());
 
            if(file.isDirectory())
-               itemFiles.add(file.getName()+"/");
+               itemFiles.add(f.getName()+"/");
            else
-               itemFiles.add(file.getName());
+               itemFiles.add(f.getName());
         }
         Move_folder();
     }

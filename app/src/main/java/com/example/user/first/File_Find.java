@@ -123,6 +123,8 @@ public class File_Find extends AppCompatActivity {
                                 getApplicationContext(), File_Read.class);
                         //파일 경로 전송.
                         intent.putExtra("File_Path", Path);
+                        intent.putExtra("Root_Path",root);
+                        intent.putExtra("File_Name",Name);
                         startActivity(intent);
                         finish();
                     }

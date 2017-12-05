@@ -20,6 +20,7 @@ import java.io.Reader;
 
 public class File_Read extends AppCompatActivity {
     TextView textView;
+    File DataFile = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class File_Read extends AppCompatActivity {
         File Root_File = new File(Root_Folder);
         if(!Root_File.exists())
             Root_File.mkdir();
-        final File DataFile = new File(Root_Folder+"/"+FileName+".dat");
+        DataFile = new File(Root_Folder+"/"+FileName+".dat");
         if(DataFile.exists())
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(File_Read.this);

@@ -21,6 +21,8 @@ import java.io.Reader;
 public class File_Read extends AppCompatActivity {
     TextView textView;
     File DataFile = null;
+    Intent intent1=null;
+    String Root_Folder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class File_Read extends AppCompatActivity {
         //가져온 파일이름만 남기기
         final String FileName = File_Name.substring(0,File_Name.lastIndexOf("."));
         textView = (TextView)findViewById(R.id.textView2);
-        String Root_Folder = Root_Path+"/E_Dot";
+        Root_Folder = Root_Path+"/E_Dot";
         //경로에 있는 파일을 가져옴.
         FileInputStream fileInputStream = null;
         int line;
@@ -49,7 +51,7 @@ public class File_Read extends AppCompatActivity {
         DataFile = new File(Root_Folder+"/"+FileName+".dat");
         if(DataFile.exists())
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(File_Read.this);
+          /*  AlertDialog.Builder alert = new AlertDialog.Builder(File_Read.this);
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -67,6 +69,7 @@ public class File_Read extends AppCompatActivity {
                     });
             alert.setMessage("이전 파일이 존재합니다. 삭제해도 되겠습니까?");
             alert.show();
+        */
         }
 
         //Toast.makeText(getApplicationContext(), FileName, Toast.LENGTH_LONG).show();
@@ -112,10 +115,24 @@ public class File_Read extends AppCompatActivity {
             bfw.flush();
             bfw.close();
             reader.close();
-            Intent intnet1 = new Intent(getApplicationContext(), Dot_Show.class);
-            intent.putExtra("File_Name",Root_Folder+"/"+FileName+".dat");
-            startActivity(intent);
-            finish();
+            AlertDialog.Builder alert = new AlertDialog.Builder(File_Read.this);
+            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    intent1 = new Intent(File_Read.this, Dot_Show.class);
+                    intent1.putExtra("File_Name",Root_Folder+"/"+FileName+".dat");
+                    startActivity(intent1);
+                    finish();
+                }
+            }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //취소 버튼 눌렀을 때, 아무일도 없어도 됨.
+                }
+            });
+            alert.setMessage("이 전자책 파일을 변환 하시겠습니까?");
+            alert.show();
+
         }catch(Exception e){
             e.printStackTrace();
         }

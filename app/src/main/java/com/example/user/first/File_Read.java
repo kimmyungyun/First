@@ -68,6 +68,7 @@ public class File_Read extends AppCompatActivity {
             alert.setMessage("이전 파일이 존재합니다. 삭제해도 되겠습니까?");
             alert.show();
         }
+
         //Toast.makeText(getApplicationContext(), FileName, Toast.LENGTH_LONG).show();
         try{
             BufferedWriter bfw = new BufferedWriter(new FileWriter(Root_File+"/"+FileName+".dat"));
@@ -77,15 +78,44 @@ public class File_Read extends AppCompatActivity {
             Reader in = new InputStreamReader(fileInputStream,"euc-kr");
             BufferedReader reader = new BufferedReader(in);
             while((line = reader.read()) != -1){
-                line = line - 0xAC00;
-                jong = line % 28;
-                jung = ((line - jong) / 28) % 21;
-                cho = (((line - jong) / 28) - jung) / 21;
-                bfw.write(line+"\n");
+                if(line==32)    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
+                    bfw.write(0b0);
+                else if(line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
+                    bfw.write(0b0);
+                else {
+                    line = line - 0xAC00;
+                    jong = line % 28;
+                    jung = ((line - jong) / 28) % 21;
+                    cho = (((line - jong) / 28) - jung) / 21;
+                    Dot dot= new Dot(cho, jung, jong);
+
+                    //초성일 경우 쓰기
+                    switch(dot.whatcase / 6){
+                        case 0: bfw.write(dot.cb_cho1); break;
+                        case 1: break;
+                        default: bfw.write(dot.cb_cho1); bfw.write(dot.cb_cho2); break;
+                    }
+
+                    //중성일 경우 쓰기
+                    switch ( (dot.whatcase%6) / 3){
+                        case 0: bfw.write(dot.cb_jung1); break;
+                        default: bfw.write(dot.cb_jung1); bfw.write(dot.cb_jung2); break;
+                    }
+
+                    switch( dot.whatcase % 3) {
+                        case 0: bfw.write(dot.cb_jong1); bfw.write(dot.cb_jong2); break;
+                        case 1: bfw.write(dot.cb_jong1); break;
+                        default: break;
+                    }
+                }
             }
             bfw.flush();
             bfw.close();
             reader.close();
+            Intent intnet1 = new Intent(getApplicationContext(), Dot_Show.class);
+            intent.putExtra("File_Name",Root_Folder+"/"+FileName+".dat");
+            startActivity(intent);
+            finish();
         }catch(Exception e){
             e.printStackTrace();
         }

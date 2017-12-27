@@ -23,7 +23,8 @@
         <activity android:name=".File_Find" />
         <activity android:name=".File_Read" />
         <activity android:name=".Dot_Show" />
-        <activity android:name=".Epub2Html"></activity>
+        <activity android:name=".Epub2Html" />
+        <activity android:name=".File_Find2"></activity>
     </application>
 
 </manifest>

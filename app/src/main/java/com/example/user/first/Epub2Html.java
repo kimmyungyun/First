@@ -54,12 +54,12 @@ public class Epub2Html extends AppCompatActivity {
 
         copyFile(File_Path,Zip_Folder+"/"+name3+".epub");
         //파일 확장자 변경
-//        if(filePre.renameTo(fileNow))
-//            Toast.makeText(getApplicationContext(),"변경성공",Toast.LENGTH_LONG).show();
-//        else
-//            Toast.makeText(getApplicationContext(),"변경 실패",Toast.LENGTH_LONG).show();
+          if(filePre.renameTo(fileNow))
+            Toast.makeText(getApplicationContext(),"변경성공",Toast.LENGTH_LONG).show();
+           else
+            Toast.makeText(getApplicationContext(),"변경 실패",Toast.LENGTH_LONG).show();
 
-    }
+   }
     //inFilePath 에 있는 것을 outFilePath 로 복사.
     //이 메소드를 한 이유는, 확장자를 그냥 변경할 경우 오리지널 파일이 사라짐.
     //채널을 사용한 이유는 일반 버퍼스트림을 이용할 경우 너무 오래걸림.

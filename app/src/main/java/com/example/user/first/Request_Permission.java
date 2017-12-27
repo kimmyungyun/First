@@ -30,14 +30,14 @@ public class Request_Permission extends AppCompatActivity {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
                 }
             } else {
-                Intent intent = new Intent(Request_Permission.this, File_Find.class);
+                Intent intent = new Intent(Request_Permission.this, File_Find2.class);
                 startActivity(intent);
                 finish();
             }
         }
         else
         {
-            Intent intent = new Intent(Request_Permission.this, File_Find.class);
+            Intent intent = new Intent(Request_Permission.this, File_Find2.class);
             startActivity(intent);
             finish();
         }
@@ -45,7 +45,7 @@ public class Request_Permission extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
-        Intent intent = new Intent(Request_Permission.this, File_Find.class);
+        Intent intent = new Intent(Request_Permission.this, File_Find2.class);
         startActivity(intent);
         finish();
     }

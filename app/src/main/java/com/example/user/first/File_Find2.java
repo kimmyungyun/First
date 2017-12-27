@@ -1,12 +1,12 @@
 package com.example.user.first;
-
+//파일 탐색기 교체될 액티비티 ( 이걸로 교체할거임)
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,22 +15,20 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
-//뒤로가기 눌렀을때 전에 있던 폴더로 돌아가기 만들고 싶은데 일단 보류
-public class File_Find extends AppCompatActivity {
+public class File_Find2 extends AppCompatActivity {
     private String root = Environment.getExternalStorageDirectory().getAbsolutePath();  //최상위 폴더
     private String CurPath = Environment.getExternalStorageDirectory().getAbsolutePath();   //현재 탐색하는 폴더
     private ArrayList<String> itemFiles = new ArrayList<String>();  //display 되는 파일이나 폴더이름
     private ArrayList<String> pathFiles = new ArrayList<String>();  // 화면에 display 되는 list의 경로와 이름이 붙어있는 목록
-    private ListViewAdapter adapter=null;
+    private ListViewAdapter2 adapter=null;
     private ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_file__find);
+        setContentView(R.layout.activity_file__find2);
+        adapter = new ListViewAdapter2();
 
-        adapter = new ListViewAdapter();
-
-        listview = (ListView) findViewById(R.id.File_View);
+        listview = (ListView) findViewById(R.id.File_View2);
         listview.setAdapter(adapter);
 
         getDir(root);
@@ -68,17 +66,17 @@ public class File_Find extends AppCompatActivity {
             pathFiles.add(file.getParent());
         }
         //찾아낸 파일 및 폴더 리스트를 배열에다가 정리.
-      for(int i=0; i<files.length;i++) {
-          File f = files[i];
-          pathFiles.add(f.getPath());
+        for(int i=0; i<files.length;i++) {
+            File f = files[i];
+            pathFiles.add(f.getPath());
 
-          if (f.isDirectory())
-              itemFiles.add(f.getName() + "/");
-          else {
-              //Toast.makeText(getApplicationContext(), f.getName(), Toast.LENGTH_LONG).show();
-              itemFiles.add(f.getName());
-          }
-      }
+            if (f.isDirectory())
+                itemFiles.add(f.getName() + "/");
+            else {
+                //Toast.makeText(getApplicationContext(), f.getName(), Toast.LENGTH_LONG).show();
+                itemFiles.add(f.getName());
+            }
+        }
         Move_folder();
     }
     private void itemClick(String name, String path)
@@ -100,7 +98,6 @@ public class File_Find extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                             }
                         }).show();
             }
@@ -112,7 +109,7 @@ public class File_Find extends AppCompatActivity {
             //누른 파일이 텍스트 파일이면
             if(file.getName().endsWith(".txt"))
             {
-                AlertDialog.Builder alert = new AlertDialog.Builder(File_Find.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(File_Find2.this);
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -129,18 +126,18 @@ public class File_Find extends AppCompatActivity {
                     }
                 }).setNegativeButton("취소",
                         new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //취소 버튼 눌렀을 때, 아무일도 없어도 됨.
-                    }
-                });
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //취소 버튼 눌렀을 때, 아무일도 없어도 됨.
+                            }
+                        });
                 alert.setMessage("이 텍스트 파일을 변환 하시겠습니까?");
                 alert.show();
             }
             //누른 파일이 epub 파일이면
             else if(file.getName().endsWith(".epub"))
             {
-                AlertDialog.Builder alert = new AlertDialog.Builder(File_Find.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(File_Find2.this);
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -179,7 +176,7 @@ public class File_Find extends AppCompatActivity {
     private void Move_folder()
     {
         //Listview 초기화 및 다시 그리기.
-        ListViewAdapter adapter2 = new ListViewAdapter();
+        ListViewAdapter2 adapter2 = new ListViewAdapter2();
         adapter = adapter2;
         listview.setAdapter(adapter);
         for(int i=0;i<itemFiles.size();i++)

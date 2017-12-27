@@ -145,7 +145,16 @@ public class File_Find extends AppCompatActivity {
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                //확인 버튼 누르면 이 epbu 파일을 읽어 와야됨.
+                        //확인 버튼 누르면 이 epbu 파일을 읽어 와야됨.
+                        //다른 액티비티에서 읽어 올려고 함.
+                        Intent intent = new Intent(
+                                getApplicationContext(), Epub2Html.class);
+                        //파일 경로 전송.
+                        intent.putExtra("File_Path", Path);
+                        intent.putExtra("Root_Path",root);
+                        intent.putExtra("File_Name",Name);
+                        startActivity(intent);
+                        finish();
                     }
                 }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override

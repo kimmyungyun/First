@@ -6,8 +6,28 @@
     android:layout_height="match_parent"
     tools:context="com.example.user.first.File_Find2">
 
-    <ListView
+    <TextView
+        android:id="@+id/File_FindName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ABCDEF"
+        android:textSize="20dp"
+        android:background="@drawable/view_edge2"
+        android:layout_alignParentTop="true"
+        android:gravity="top"/>
+    <GridView
         android:id="@+id/File_View2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"></ListView>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="75dp"
+        android:background="#DEE"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:stretchMode="columnWidth"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:layout_alignBottom="@id/File_FindName"
+        >
+    </GridView>
+
 </android.support.constraint.ConstraintLayout>

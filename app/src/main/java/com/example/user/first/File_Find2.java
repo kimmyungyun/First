@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,14 +22,14 @@ public class File_Find2 extends AppCompatActivity {
     private ArrayList<String> itemFiles = new ArrayList<String>();  //display 되는 파일이나 폴더이름
     private ArrayList<String> pathFiles = new ArrayList<String>();  // 화면에 display 되는 list의 경로와 이름이 붙어있는 목록
     private ListViewAdapter2 adapter=null;
-    private ListView listview;
+    private GridView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file__find2);
         adapter = new ListViewAdapter2();
 
-        listview = (ListView) findViewById(R.id.File_View2);
+        listview = (GridView) findViewById(R.id.File_View2);
         listview.setAdapter(adapter);
 
         getDir(root);

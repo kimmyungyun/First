@@ -6,15 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.first.Dot_Show">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="499dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+</ScrollView>
 </android.support.constraint.ConstraintLayout>

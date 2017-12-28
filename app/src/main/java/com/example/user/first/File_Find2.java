@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -22,23 +23,21 @@ public class File_Find2 extends AppCompatActivity {
     private ArrayList<String> itemFiles = new ArrayList<String>();  //display 되는 파일이나 폴더이름
     private ArrayList<String> pathFiles = new ArrayList<String>();  // 화면에 display 되는 list의 경로와 이름이 붙어있는 목록
     private ListViewAdapter2 adapter=null;
-    private GridView listview;
+    private GridView girdview;
+    private TextView Path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file__find2);
         adapter = new ListViewAdapter2();
 
-        listview = (GridView) findViewById(R.id.File_View2);
-        listview.setAdapter(adapter);
-
+        girdview = (GridView) findViewById(R.id.File_View2);
+        Path=(TextView)findViewById(R.id.File_FindName);
+        girdview.setAdapter(adapter);
         getDir(root);
 
-        //adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"First","설명");
-        //adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),"Second","설명");
-
-        //listview 아이템 눌렀을 경우 실행 될 행동.
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //girdview 아이템 눌렀을 경우 실행 될 행동.
+        girdview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //눌린 위치의 정보를 가져옴
@@ -47,6 +46,14 @@ public class File_Find2 extends AppCompatActivity {
                 itemClick(ob.getTitle(),ob.getDesc());
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        String parent = CurPath.substring(0,CurPath.lastIndexOf("/"));
+        if(root.equals(CurPath+"/")  )
+            super.onBackPressed();
+        else
+            itemClick("../",parent);
     }
     private void getDir(String dirPath)
     {
@@ -174,12 +181,23 @@ public class File_Find2 extends AppCompatActivity {
             }
         }
     }
+    private String File_Path_Rename(String Folder_Path){
+        String Path=Folder_Path;
+        String result="내장메모리";
+        String tmp[] = Path.split("/");
+        for(int i=0;i<tmp.length;i++)
+        {
+            if(i>3)
+                result=result+"▶"+tmp[i];
+        }
+        return result;
+    }
     private void Move_folder()
     {
-        //Listview 초기화 및 다시 그리기.
+        //girdview 초기화 및 다시 그리기.
         ListViewAdapter2 adapter2 = new ListViewAdapter2();
         adapter = adapter2;
-        listview.setAdapter(adapter);
+        girdview.setAdapter(adapter);
         for(int i=0;i<itemFiles.size();i++)
         {
             // 여기서 listview 에 넣는데 확장자 명에 따라 그림을 구분 해줘야됨.
@@ -192,6 +210,8 @@ public class File_Find2 extends AppCompatActivity {
             else
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),itemFiles.get(i),pathFiles.get(i));
         }
+        String tmp = File_Path_Rename(CurPath);
+        Path.setText(tmp);
         adapter.notifyDataSetChanged();
     }
 

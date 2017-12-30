@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +26,8 @@
         <activity android:name=".File_Read" />
         <activity android:name=".Dot_Show" />
         <activity android:name=".Epub2Html" />
-        <activity android:name=".File_Find2"></activity>
+        <activity android:name=".File_Find2" />
+        <activity android:name=".BlueTooth" />
     </application>
 
 </manifest>

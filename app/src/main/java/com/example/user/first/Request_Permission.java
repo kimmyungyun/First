@@ -42,11 +42,4 @@ public class Request_Permission extends AppCompatActivity {
             finish();
         }
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
-    {
-        Intent intent = new Intent(Request_Permission.this, File_Find2.class);
-        startActivity(intent);
-        finish();
-    }
 }

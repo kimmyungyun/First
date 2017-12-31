@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -35,7 +37,11 @@ public class BlueTooth extends AppCompatActivity {
     BluetoothSocket mSocket = null;
     OutputStream mOutputStream = null;
     InputStream mInputStream = null;
+    //전송할 Dat파일
     String File_Name;
+    //Dat파일 불러올 것
+    File Send_File;
+    private FileReader fr = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,10 @@ public class BlueTooth extends AppCompatActivity {
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         File_Name = intent.getStringExtra("File_Name");
+        //아직 방법을 몰라서 그러는데 블루투스 목록을 띄워줄 때 연결 안된 블루투스는 목록에 안뜸.
+        //사용 방법을 알려 주던지, 아니면 한번 등록을 하면은 계속해서 자동으로 연결 해주는 방법을 찾아야할듯.
+
+        checkBluetooth();
     }
     void checkBluetooth(){
         /*
@@ -52,6 +62,7 @@ public class BlueTooth extends AppCompatActivity {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter== null){   //블루투스 모듈이 없을 경우
             Toast.makeText(getApplicationContext(),"기기가 블루투스를 지원하지 않습니다.",Toast.LENGTH_LONG);
+            //뭘 해야할지 생각 해봐야 할듯.
         }
         else{//블루투스 지원
             /*
@@ -67,9 +78,7 @@ public class BlueTooth extends AppCompatActivity {
             }
             else    //블루투스 지원하며 활성 상태인 경우.
             //페어링된 기기 목록을 보여주고 연결할 장치를 선택.
-            {
-
-            }
+                selectDevice();
         }
     }
     void selectDevice(){
@@ -80,6 +89,7 @@ public class BlueTooth extends AppCompatActivity {
 
         if(mPariedDeviceCount == 0){    //페어링된 장치가 없는 경우
             Toast.makeText(getApplicationContext(), "페어링된 장치가 없습니다.", Toast.LENGTH_LONG).show();
+            //페어링된 장치가 없을 경우 뭘 해야할지 생각해봐야할듯.
         }
         //페어링된 장치가 있는 경우
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -104,9 +114,10 @@ public class BlueTooth extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int item) {
                 if(item == mPariedDeviceCount){ //연결할 장치를 선택하지 않고 '취소'를 누른경우,
                     Toast.makeText(getApplicationContext(),"연결할 장치를 선택하지 않았습니다.",Toast.LENGTH_LONG);
+                    //선택 안할 경우 뭘 해야할지 생각해봐야 할듯.
                 }
                 else{   //연결할 장치를 선택한 경우, 선택한 장치와 연결을 시도.
-
+                    connectToSelectedDevice(items[item].toString());
                 }
             }
         });
@@ -136,6 +147,18 @@ public class BlueTooth extends AppCompatActivity {
             mInputStream = mSocket.getInputStream();
 
             //요 부분에다가 데이터 송신 하는거 넣어야 됨.
+
+            //전송할 파일 읽어오기
+            int data;
+            Send_File = new File(File_Name);
+            try {
+                fr = new FileReader(Send_File);
+                int j = 0;
+                while ((data = fr.read()) != -1) {
+                    mOutputStream.write((byte)data);
+                }
+            }catch(Exception e)
+            {            }
             Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
             intent1.putExtra("File_Name",File_Name);
             startActivity(intent1);
@@ -149,7 +172,7 @@ public class BlueTooth extends AppCompatActivity {
         switch (requestCode){
             case REQUEST_ENABLE_BT:
                 if(resultCode == RESULT_OK){
-
+                    selectDevice();
                 }
                 else if(resultCode == RESULT_CANCELED){
                     Toast.makeText(getApplicationContext(),"현재 블루투스가 비활성 상태로 이용 할 수 없습니다..", Toast.LENGTH_LONG);
@@ -177,6 +200,7 @@ public class BlueTooth extends AppCompatActivity {
     protected void onDestroy(){
         try{
             mSocket.close();
+            mOutputStream.close();
         }catch(Exception e){}
         super.onDestroy();
     }

@@ -106,17 +106,19 @@ public class BlueTooth extends AppCompatActivity {
         //CharSequence : 변경 가능한 문자열
         // toArray : List형태로 넘어온 것 배열로 바꿔서 처리하기 위한 toArray() 함수.
         final CharSequence[] items = listItems.toArray(new CharSequence[listItems.size()]);
-            //toArray함수를 이용해서 szie만큼 배열이 생성
+            //toArray함수를 이용해서 size만큼 배열이 생성
         listItems.toArray(new CharSequence[listItems.size()]);
-
+        System.out.println("확인");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
                 if(item == mPariedDeviceCount){ //연결할 장치를 선택하지 않고 '취소'를 누른경우,
                     Toast.makeText(getApplicationContext(),"연결할 장치를 선택하지 않았습니다.",Toast.LENGTH_LONG);
+                    finish();
                     //선택 안할 경우 뭘 해야할지 생각해봐야 할듯.
                 }
                 else{   //연결할 장치를 선택한 경우, 선택한 장치와 연결을 시도.
+                    Toast.makeText(getApplicationContext(),"연결할 장치와 연결을 시도합니다.",Toast.LENGTH_LONG);
                     connectToSelectedDevice(items[item].toString());
                 }
             }
@@ -129,16 +131,20 @@ public class BlueTooth extends AppCompatActivity {
     // 실제 데이터 송수신을 위해서는 소켓으로부터 입출력 스트림을 얻고 이용하여 이루어진다.
     void connectToSelectedDevice(String selectedDeviceName){
         //BluetoothDevice 원격 블루투스 기기를 나타냄.
+        System.out.println("확인1");
         mRemoteDevie = getDeviceFromBondedList(selectedDeviceName);
         //java.util.UUID.fromString : 자바에서 중복되지 않는 Unique 키 생성.
         UUID uuid = java.util.UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
         try{
+            System.out.println("확인2");
             // 소켓 생성, RFCOMM 채널을 통한 연결.
             // createRfcommSocketToServiceRecord(uuid) : 이 함수를 사용하여 원격 블루투스 장치와 통신할 수 있는 소켓을 생성함.
             // 이 메소드가 성공하면 스마트폰과 페어링 된 디바이스간 통신 채널에 대응하는 BluetoothSocket 오브젝트를 리턴함.
             mSocket = mRemoteDevie.createRfcommSocketToServiceRecord(uuid);
+            System.out.println("확인3");
             mSocket.connect(); // 소켓이 생성 되면 connect() 함수를 호출함으로써 두기기의 연결은 완료된다.
 
+            System.out.println("확인4");
             // 데이터 송수신을 위한 스트림 얻기.
             // BluetoothSocket 오브젝트는 두개의 Stream을 제공한다.
             // 1. 데이터를 보내기 위한 OutputStrem
@@ -152,17 +158,21 @@ public class BlueTooth extends AppCompatActivity {
             int data;
             Send_File = new File(File_Name);
             try {
+                System.out.println("확인5");
+                Toast.makeText(getApplicationContext(),"블루투스 연결 완료했습니다.",Toast.LENGTH_LONG);
                 fr = new FileReader(Send_File);
                 int j = 0;
                 while ((data = fr.read()) != -1) {
                     mOutputStream.write((byte)data);
+                    Toast.makeText(getApplicationContext(),"전송중",Toast.LENGTH_LONG);
+                    System.out.println("확인6");
                 }
             }catch(Exception e)
             {            }
-            Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
-            intent1.putExtra("File_Name",File_Name);
-            startActivity(intent1);
-            finish();
+          //  Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
+          //  intent1.putExtra("File_Name",File_Name);
+          //  startActivity(intent1);
+          //  finish();
         }catch(Exception e){
             Toast.makeText(getApplicationContext(),"블루투스 연결 중 오류가 발생했습니다.",Toast.LENGTH_LONG);
         }
@@ -201,6 +211,7 @@ public class BlueTooth extends AppCompatActivity {
         try{
             mSocket.close();
             mOutputStream.close();
+            mInputStream.close();
         }catch(Exception e){}
         super.onDestroy();
     }

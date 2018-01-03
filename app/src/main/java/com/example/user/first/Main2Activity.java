@@ -18,7 +18,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(
-                        Main2Activity.this, Request_Permission.class);
+                        Main2Activity.this, File_Find2.class);
                 startActivity(intent);
             }
         });

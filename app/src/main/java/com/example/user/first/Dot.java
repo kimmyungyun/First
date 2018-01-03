@@ -27,7 +27,8 @@ public class Dot {
      */
 
     int whatcase=0;
-    int cb_cho1,cb_cho2, cb_jung1, cb_jung2, cb_jong1, cb_jong2;
+    //출력을 byte로
+    byte cb_cho1,cb_cho2, cb_jung1, cb_jung2, cb_jong1, cb_jong2;
 
     //자바 생성자 초성중성 종성을 받아서 case별로 구분
 
@@ -71,7 +72,8 @@ public class Dot {
             findjong2(cb_jong);
     }
 
-    protected int findcho1 (int cb_cho)
+    //출력시 byte로 나옴
+    protected byte findcho1 (int cb_cho)
     {
         switch (cb_cho) {
             // ㄱ
@@ -195,7 +197,7 @@ public class Dot {
        }
 
     //종성이 1개일때 종성값 리턴
-    protected int findjong1 (int cb_jong){
+    protected byte findjong1 (int cb_jong){
         // ㄱ
         if(cb_jong == 1)
             return 0b100000;

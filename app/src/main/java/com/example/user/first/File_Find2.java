@@ -169,6 +169,15 @@ public class File_Find2 extends AppCompatActivity {
                 alert.setMessage("이 전자책 파일을 변환 하시겠습니까?");
                 alert.show();
             }
+            // 180103 21시 dat파일을 누르면 dot_show가 실행되서 dat파일이 바뀜
+            else if(file.getName().endsWith(".dat"))
+            {
+                Intent intent = new Intent(
+                        getApplicationContext(), Dot_Show.class);
+                intent.putExtra("File_Name",Path);
+                startActivity(intent);
+                finish();
+            }
             else {
                 new AlertDialog.Builder(this)
                         .setTitle("[" + file.getName() + "]")

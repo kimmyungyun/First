@@ -7,21 +7,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
+    private TimerTask mTask;
+    private Timer mTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton b = (ImageButton)findViewById(R.id.imageButton);
-        b.setOnClickListener(new View.OnClickListener() {
+        mTask = new TimerTask() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(
-                        MainActivity.this, Request_Permission.class);
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Main2Activity.class );
                 startActivity(intent);
+                finish();
             }
-        });
+        };
+        mTimer = new Timer();
+        mTimer.schedule(mTask, 3000);
+    }
+    @Override
+    protected void onDestroy(){
+        mTimer.cancel();
+        super.onDestroy();
     }
 }

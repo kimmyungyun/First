@@ -6,7 +6,7 @@
     >
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="70dp"
         android:id="@+id/imageV1"
         android:layout_centerHorizontal="true"
         android:background="#FCDBFD"
@@ -21,6 +21,7 @@
         android:background="#FCDBFD"
         android:padding="2dp"
         android:textColor="#000000"
+        android:gravity="center"
         />
 
 

@@ -8,14 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+//import org.w3c.dom.Document;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class Epub2Html extends AppCompatActivity {
     String Root_Folder;
@@ -71,7 +78,7 @@ public class Epub2Html extends AppCompatActivity {
               epub파일을 zip파일로 바꾼후 zip파일의 압축을 해제
             */
            String Foldername=Zip_Folder+"/"+name3;
-           makeFolder(Foldername);
+           Foldername=makeFolder(Foldername);
           String unzipfilepath = fileNow.getAbsolutePath();
         Toast.makeText(getApplicationContext(),unzipfilepath,Toast.LENGTH_LONG).show();
           try{
@@ -130,7 +137,7 @@ public class Epub2Html extends AppCompatActivity {
        폴더경로+이름을 받고
        폴더가 있으면 폴더를 삭제할것인지 물어보고, 폴더가 없으면 폴더를 만든다.
      */
-    public void makeFolder (final String foldername)
+    public String makeFolder (final String foldername)
     {
         try {
 
@@ -170,11 +177,12 @@ public class Epub2Html extends AppCompatActivity {
                 alert.setMessage("이전 파일이 존재합니다. 삭제해도 되겠습니까?");
                 alert.setCancelable(false);
                 alert.show();
-
             }
 
         }catch(Exception e){
         }
+        return FolderFile.getPath();
+
     }
     /*
     박종수
@@ -185,9 +193,11 @@ public class Epub2Html extends AppCompatActivity {
     public void unZipZipfile (String zipFileName, String unZipdirectory) throws Throwable
     {
         File zipfile = new File(zipFileName);
+        File unZipFileNCXFILE = null;
         FileInputStream unZipFileInputStream = null;
         ZipInputStream unZipZipInputStream = null;
         ZipEntry unZipZipEntry = null;
+        String unZipCopyfileName=null;
         try{
             //파일스트림
             unZipFileInputStream= new FileInputStream(zipfile);
@@ -199,11 +209,25 @@ public class Epub2Html extends AppCompatActivity {
                 //entiry가 폴더면 폴더 생성
                 if (unZipZipEntry.isDirectory()) {
                     file.mkdirs();
-                } else {
-                    //파일이면 파일 만들기
-                    createFile(file, unZipZipInputStream);
+                }
+                // 폴더가 아니면 파일 생성
+                else {
+                    if(file.getName().endsWith(".ncx"))
+                    {
+                        createFile(file, unZipZipInputStream);
+                        String NcxFolder= makeFolder(file.getParent()+"/ncx");
+                        unZipCopyfileName=NcxFolder+"/ncx.xml";
+                        copyFile(file.getPath(),unZipCopyfileName );
+                    }
+                    else {
+                        //파일이면 파일 만들기
+                        createFile(file, unZipZipInputStream);
+                    }
                 }
             }
+            //압축이 끝나면
+            unZipFileNCXFILE=new File(unZipCopyfileName);
+            xmlParse(unZipFileNCXFILE);
         }
         catch (Throwable e){
             throw e;
@@ -241,6 +265,40 @@ public class Epub2Html extends AppCompatActivity {
         } catch (Throwable e) {
             throw e;
         }
+    }
+
+    /*
+    박종수
+    180108 17:57
+    xml파일을 파싱하기 위한 클래스
+    ncx파일을 xml로 바꾼후 바꾼 xml파일을 text와 content부분만 파싱한다.
+     */
+    public void xmlParse (File file) throws  Throwable{
+        String fileName = file.getPath();
+        BufferedReader xmlParseIn = new BufferedReader(new FileReader(fileName));
+
+        String line="", data="";
+        try {
+            BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent()+"/"+"epub2html.txt"));
+            while( (line=xmlParseIn.readLine()) != null )
+            {
+                if(line.contains("<text")){
+                    data=line.substring(line.indexOf(">")+1,line.lastIndexOf("<"));
+                    xmlParseWriter.write(data);
+                }
+                else if (line.contains("<content src=")){
+                    data=file.getParent()+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
+                    Document d= Jsoup.parse(data);
+                    data=d.text();
+                    xmlParseWriter.write(data);
+                }
+            }
+
+        } catch (Throwable e) {
+            throw e;
+        }
+
+        xmlParseIn.close();
     }
 
 

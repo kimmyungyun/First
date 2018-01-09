@@ -23,6 +23,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
+
 
 public class Epub2Html extends AppCompatActivity {
     String Root_Folder;
@@ -215,8 +220,9 @@ public class Epub2Html extends AppCompatActivity {
                     if(file.getName().endsWith(".ncx"))
                     {
                         createFile(file, unZipZipInputStream);
-                        String NcxFolder= makeFolder(file.getParent()+"/ncx");
-                        unZipCopyfileName=NcxFolder+"/ncx.xml";
+                        //String NcxFolder= makeFolder(file.getParent()+"/ncx");
+                        //unZipCopyfileName=NcxFolder+"/ncx.xml";
+                        unZipCopyfileName=file.getParent()+"/ncx.xml";
                         copyFile(file.getPath(),unZipCopyfileName );
                     }
                     else {
@@ -285,12 +291,27 @@ public class Epub2Html extends AppCompatActivity {
                 if(line.contains("<text")){
                     data=line.substring(line.indexOf(">")+1,line.lastIndexOf("<"));
                     xmlParseWriter.write(data);
+                    data=null;
+                }
+                else if(line.contains(".html#"))
+                {
+
                 }
                 else if (line.contains("<content src=")){
-                    data=file.getParent()+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
-                    Document d= Jsoup.parse(data);
-                    data=d.text();
-                    xmlParseWriter.write(data);
+                    //data=file.getParent().substring(0,file.getParent().lastIndexOf("/")-4)+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
+                    String contentPath=file.getParent()+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
+                    File fff = new File(contentPath);
+                    if(fff.exists()) {
+                        //Document d= parse(fff, "UTF-8");
+                        Document d = Jsoup.parse(fff, "UTF-8");
+                        //data=d.text();
+                        Elements e = d.select("p");
+                        for (Element x : e) {
+                            data = x.text();
+                            xmlParseWriter.write(data);
+                        }
+                        data = null;
+                    }
                 }
             }
 

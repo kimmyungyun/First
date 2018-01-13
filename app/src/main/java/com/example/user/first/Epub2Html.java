@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.Jsoup;
@@ -28,11 +29,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 
 public class Epub2Html extends AppCompatActivity {
     String Root_Folder;
     String Zip_Folder;
     File FolderFile = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,67 +51,65 @@ public class Epub2Html extends AppCompatActivity {
         //가져온 파일이름만 남기기
 
         //파일 이름 +.epub 파일명
-        String name1 = File_Path.substring(File_Path.lastIndexOf("/")+1);
+        String name1 = File_Path.substring(File_Path.lastIndexOf("/") + 1);
         //파일 주소.
-        String name2 = File_Path.substring(0,File_Path.lastIndexOf("/"));
+        String name2 = File_Path.substring(0, File_Path.lastIndexOf("/"));
         //파일 이름만 따옴.
-        String name3 = name1.substring(0,name1.lastIndexOf("."));
+        String name3 = name1.substring(0, name1.lastIndexOf("."));
 
-        Root_Folder = Root_Path+"/E_Dot";
-        Zip_Folder = Root_Folder+"/Zip";
+        Root_Folder = Root_Path + "/E_Dot";
+        Zip_Folder = Root_Folder + "/Zip";
 
         //폴더가 없으면 생성
         File Root_File = new File(Root_Folder);
-        if(!Root_File.exists())
+        if (!Root_File.exists())
             Root_File.mkdir();
         //zip 폴더가 없으면 생성.
         File Zip_File = new File(Zip_Folder);
-        if(!Zip_File.exists())
+        if (!Zip_File.exists())
             Zip_File.mkdir();
         //이 위로는 이상 없음.
 
-        File filePre = new File(Zip_Folder+"/",name1);
-        File fileNow = new File(Zip_Folder+"/",name3+".zip");
+        File filePre = new File(Zip_Folder + "/", name1);
+        File fileNow = new File(Zip_Folder + "/", name3 + ".zip");
 
-        copyFile(File_Path,Zip_Folder+"/"+name3+".epub");
+        copyFile(File_Path, Zip_Folder + "/" + name3 + ".epub");
         //파일 확장자 변경
-          if(filePre.renameTo(fileNow))
-            Toast.makeText(getApplicationContext(),"변경성공",Toast.LENGTH_LONG).show();
-           else
-            Toast.makeText(getApplicationContext(),"변경 실패",Toast.LENGTH_LONG).show();
+        if (filePre.renameTo(fileNow))
+            Toast.makeText(getApplicationContext(), "변경성공", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(), "변경 실패", Toast.LENGTH_LONG).show();
 
 
            /* 박종수
               18.01.05 15:00
               epub파일을 zip파일로 바꾼후 zip파일의 압축을 해제
             */
-           String Foldername=Zip_Folder+"/"+name3;
-           Foldername=makeFolder(Foldername);
-          String unzipfilepath = fileNow.getAbsolutePath();
-        Toast.makeText(getApplicationContext(),unzipfilepath,Toast.LENGTH_LONG).show();
-          try{
-              unZipZipfile(unzipfilepath,Foldername);
-              Toast.makeText(getApplicationContext(),"압축성공",Toast.LENGTH_LONG).show();
-          }
-          catch (Throwable e){
-              e.printStackTrace();
-              Toast.makeText(getApplicationContext(),"압축실패",Toast.LENGTH_LONG).show();
-          }
+        String Foldername = Zip_Folder + "/" + name3;
+        Foldername = makeFolder(Foldername);
+        String unzipfilepath = fileNow.getAbsolutePath();
+        Toast.makeText(getApplicationContext(), unzipfilepath, Toast.LENGTH_LONG).show();
+        try {
+            unZipZipfile(unzipfilepath, Foldername);
+            Toast.makeText(getApplicationContext(), "압축성공", Toast.LENGTH_LONG).show();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "압축실패", Toast.LENGTH_LONG).show();
+        }
 
 
+    }
 
-   }
     //inFilePath 에 있는 것을 outFilePath 로 복사.
     //이 메소드를 한 이유는, 확장자를 그냥 변경할 경우 오리지널 파일이 사라짐.
     //채널을 사용한 이유는 일반 버퍼스트림을 이용할 경우 너무 오래걸림.
-    public synchronized void copyFile(String inFilePath, String outFilePath)
-    {
+    public synchronized void copyFile(String inFilePath, String outFilePath) {
         FileInputStream fis = null;
         FileOutputStream fos = null;
         FileChannel fcin = null;
         FileChannel fcout = null;
 
-        try{
+        try {
             //스트림 생성
             fis = new FileInputStream(inFilePath);
             fos = new FileOutputStream(outFilePath);
@@ -118,32 +119,35 @@ public class Epub2Html extends AppCompatActivity {
 
             long size = fcin.size();
 
-            fcin.transferTo(0,size,fcout);
-        }
-        catch(IOException e){
+            fcin.transferTo(0, size, fcout);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //자원 해제
         try {
             fcout.close();
-        }catch(IOException ioe){}
-        try{
+        } catch (IOException ioe) {
+        }
+        try {
             fcin.close();
-        }catch(IOException ioe){}
-        try{
+        } catch (IOException ioe) {
+        }
+        try {
             fos.close();
-        }catch(IOException ioe){}
-        try{
+        } catch (IOException ioe) {
+        }
+        try {
             fis.close();
-        }catch(IOException ioe){}
+        } catch (IOException ioe) {
+        }
     }
+
     /* 박종수
        18.01.05 12:02
        폴더경로+이름을 받고
        폴더가 있으면 폴더를 삭제할것인지 물어보고, 폴더가 없으면 폴더를 만든다.
      */
-    public String makeFolder (final String foldername)
-    {
+    public String makeFolder(final String foldername) {
         try {
 
             FolderFile = new File(foldername);
@@ -152,9 +156,8 @@ public class Epub2Html extends AppCompatActivity {
             if (!FolderFile.exists())
                 FolderFile.mkdir();
 
-            //폴더가존재하면 폴더명1, 폴더명2 순으로 존재유무를 판별하고 존재하지않을때까지 숫자를 크게한후 폴더 생성
-            else
-            {
+                //폴더가존재하면 폴더명1, 폴더명2 순으로 존재유무를 판별하고 존재하지않을때까지 숫자를 크게한후 폴더 생성
+            else {
                 AlertDialog.Builder alert = new AlertDialog.Builder(Epub2Html.this);
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -169,12 +172,11 @@ public class Epub2Html extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //취소 버튼 눌렀을 때, 무슨일이 있어야할까..?
-                                int makeFoldercounti=1;
-                                FolderFile=new File(foldername+String.valueOf(makeFoldercounti));
-                                while(!FolderFile.exists())
-                                {
+                                int makeFoldercounti = 1;
+                                FolderFile = new File(foldername + String.valueOf(makeFoldercounti));
+                                while (!FolderFile.exists()) {
                                     makeFoldercounti++;
-                                    FolderFile=new File(foldername+String.valueOf(makeFoldercounti));
+                                    FolderFile = new File(foldername + String.valueOf(makeFoldercounti));
                                 }
                                 FolderFile.mkdir();
                             }
@@ -184,31 +186,31 @@ public class Epub2Html extends AppCompatActivity {
                 alert.show();
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
         }
         return FolderFile.getPath();
 
     }
+
     /*
     박종수
     18.01.05 15:00
     위에서 압축된 zip파일을 해제하기 위해 만듬
     http://nowonbun.tistory.com/321
      */
-    public void unZipZipfile (String zipFileName, String unZipdirectory) throws Throwable
-    {
+    public void unZipZipfile(String zipFileName, String unZipdirectory) throws Throwable {
         File zipfile = new File(zipFileName);
         File unZipFileNCXFILE = null;
         FileInputStream unZipFileInputStream = null;
         ZipInputStream unZipZipInputStream = null;
         ZipEntry unZipZipEntry = null;
-        String unZipCopyfileName=null;
-        try{
+        String unZipCopyfileName = null;
+        try {
             //파일스트림
-            unZipFileInputStream= new FileInputStream(zipfile);
+            unZipFileInputStream = new FileInputStream(zipfile);
             //Zip 파일 스트림
             unZipZipInputStream = new ZipInputStream(unZipFileInputStream);
-            while((unZipZipEntry=unZipZipInputStream.getNextEntry()) != null){
+            while ((unZipZipEntry = unZipZipInputStream.getNextEntry()) != null) {
                 String inzipfilename = unZipZipEntry.getName();
                 File file = new File(unZipdirectory, inzipfilename);
                 //entiry가 폴더면 폴더 생성
@@ -217,25 +219,22 @@ public class Epub2Html extends AppCompatActivity {
                 }
                 // 폴더가 아니면 파일 생성
                 else {
-                    if(file.getName().endsWith(".ncx"))
-                    {
+                    if (file.getName().endsWith(".ncx")) {
                         createFile(file, unZipZipInputStream);
                         //String NcxFolder= makeFolder(file.getParent()+"/ncx");
                         //unZipCopyfileName=NcxFolder+"/ncx.xml";
-                        unZipCopyfileName=file.getParent()+"/ncx.xml";
-                        copyFile(file.getPath(),unZipCopyfileName );
-                    }
-                    else {
+                        unZipCopyfileName = file.getParent() + "/ncx.xml";
+                        copyFile(file.getPath(), unZipCopyfileName);
+                    } else {
                         //파일이면 파일 만들기
                         createFile(file, unZipZipInputStream);
                     }
                 }
             }
             //압축이 끝나면
-            unZipFileNCXFILE=new File(unZipCopyfileName);
+            unZipFileNCXFILE = new File(unZipCopyfileName);
             xmlParse(unZipFileNCXFILE);
-        }
-        catch (Throwable e){
+        } catch (Throwable e) {
             throw e;
         } finally {
             if (unZipZipInputStream != null)
@@ -244,6 +243,7 @@ public class Epub2Html extends AppCompatActivity {
                 unZipZipInputStream.close();
         }
     }
+
     /*
     박종수
     180107 22:32
@@ -258,9 +258,9 @@ public class Epub2Html extends AppCompatActivity {
             parentDir.mkdirs();
         }
         FileOutputStream fos = null;
-        fos= new FileOutputStream(file);
+        fos = new FileOutputStream(file);
         //파일 스트림 선언
-        try{
+        try {
             byte[] buffer = new byte[256];
             int size = 0;
             //Zip스트림으로부터 byte뽑아내기
@@ -279,49 +279,52 @@ public class Epub2Html extends AppCompatActivity {
     xml파일을 파싱하기 위한 클래스
     ncx파일을 xml로 바꾼후 바꾼 xml파일을 text와 content부분만 파싱한다.
      */
-    public void xmlParse (File file) throws  Throwable{
+    public void xmlParse(File file) throws Throwable {
+        ArrayList<String> xmlParse_htmllist = new ArrayList<String>();
         String fileName = file.getPath();
         BufferedReader xmlParseIn = new BufferedReader(new FileReader(fileName));
 
-        String line="", data="";
+        String line = "", data = "";
         try {
-            BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent()+"/"+"epub2html.txt"));
-            while( (line=xmlParseIn.readLine()) != null )
-            {
-                if(line.contains("<text")){
-                    data=line.substring(line.indexOf(">")+1,line.lastIndexOf("<"));
-                    xmlParseWriter.write(data);
-                    data=null;
-                }
-                else if(line.contains(".html#"))
-                {
+            BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent() + "/" + "epub2html.txt"));
+            while ((line = xmlParseIn.readLine()) != null) {
 
-                }
-                else if (line.contains("<content src=")){
-                    //data=file.getParent().substring(0,file.getParent().lastIndexOf("/")-4)+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
-                    String contentPath=file.getParent()+"/"+line.substring(line.indexOf("=")+2,line.lastIndexOf("/")-1);
-                    File fff = new File(contentPath);
-                    if(fff.exists()) {
-                        //Document d= parse(fff, "UTF-8");
-                        Document d = Jsoup.parse(fff, "UTF-8");
-                        //data=d.text();
-                        Elements e = d.select("p");
-                        for (Element x : e) {
-                            data = x.text();
-                            xmlParseWriter.write(data);
-                        }
+                    if (line.contains("<docTitle>")) {
+                        while (!line.contains("</docTitle>"))
+                            line = xmlParseIn.readLine();
+                    } else if (line.contains("<text")) {
+                        data = line.substring(line.indexOf(">") + 1, line.lastIndexOf("<"));
+                        xmlParseWriter.write(data);
                         data = null;
+                    } else if (line.contains("<content src=")) {
+                        String contentPath = file.getParent() + "/" + line.substring(line.indexOf("=") + 2, line.lastIndexOf("/") - 1);
+                        if (contentPath.contains(".html#") || contentPath.contains(".xml#")) {
+                            contentPath = contentPath.substring(0, contentPath.lastIndexOf("#"));
+                        }
+                        if (!xmlParse_htmllist.contains(contentPath)) {
+                            File fff = new File(contentPath);
+                            if (fff.exists()) {
+                                Document d = Jsoup.parse(fff, "UTF-8");
+                                //data=d.text();
+                                Elements e = d.select("p");
+                                for (Element x : e) {
+                                    data = x.text();
+                                    xmlParseWriter.write(data);
+
+                                }
+                                xmlParse_htmllist.add(contentPath);
+                            }
+                        }
                     }
                 }
-            }
 
-        } catch (Throwable e) {
-            throw e;
-        }
+
+            } catch(Throwable e){
+                throw e;
+            }
 
         xmlParseIn.close();
     }
-
 
 
 }

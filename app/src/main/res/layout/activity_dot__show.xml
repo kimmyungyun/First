@@ -8,7 +8,9 @@
     tools:context="com.example.user.first.Dot_Show">
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#F7B5F8"
+    >
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"

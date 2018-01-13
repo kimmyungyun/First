@@ -153,9 +153,17 @@ public class BlueTooth extends AppCompatActivity {
             mInputStream = mSocket.getInputStream();
 
             //요 부분에다가 데이터 송신 하는거 넣어야 됨.
+            int data;
+            // 전송을 시작합니다.
+            try{
+                data=0b10000000;    //요거가 데이터 전송 시작.
+                mOutputStream.write((byte)data);
+            }catch(Exception e){
+
+            }
 
             //전송할 파일 읽어오기
-            int data;
+
             Send_File = new File(File_Name);
             try {
                 System.out.println("확인5");
@@ -169,6 +177,15 @@ public class BlueTooth extends AppCompatActivity {
                 }
             }catch(Exception e)
             {            }
+
+
+            // 전송을 시작합니다.
+            try{
+                data=0b11000000;    //요거가 데이터 전송 끝.
+                mOutputStream.write((byte)data);
+            }catch(Exception e){
+
+            }
           //  Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
           //  intent1.putExtra("File_Name",File_Name);
           //  startActivity(intent1);

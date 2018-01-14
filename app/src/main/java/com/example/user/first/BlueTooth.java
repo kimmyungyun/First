@@ -154,42 +154,42 @@ public class BlueTooth extends AppCompatActivity {
 
             //요 부분에다가 데이터 송신 하는거 넣어야 됨.
             int data;
-            // 전송을 시작합니다.
-            try{
-                data=0b10000000;    //요거가 데이터 전송 시작.
-                mOutputStream.write((byte)data);
-            }catch(Exception e){
-
-            }
 
             //전송할 파일 읽어오기
 
             Send_File = new File(File_Name);
             try {
-                System.out.println("확인5");
+
                 Toast.makeText(getApplicationContext(),"블루투스 연결 완료했습니다.",Toast.LENGTH_LONG);
+
+                // 전송을 시작합니다.
+                System.out.println("확인5");
+                data=0b10000000;    //요거가 데이터 전송 시작.
+                mOutputStream.write((byte)data);
+
                 fr = new FileReader(Send_File);
                 int j = 0;
                 while ((data = fr.read()) != -1) {
                     mOutputStream.write((byte)data);
                     Toast.makeText(getApplicationContext(),"전송중",Toast.LENGTH_LONG);
-                    System.out.println("확인6");
+                    System.out.println("확인7");
                 }
             }catch(Exception e)
             {            }
 
 
-            // 전송을 시작합니다.
+            // 전송을 끝.
             try{
-                data=0b11000000;    //요거가 데이터 전송 끝.
+                data=0b01000000;    //요거가 데이터 전송 끝.
+                System.out.println("확인8");
                 mOutputStream.write((byte)data);
             }catch(Exception e){
 
             }
-          //  Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
-          //  intent1.putExtra("File_Name",File_Name);
-          //  startActivity(intent1);
-          //  finish();
+            Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
+            intent1.putExtra("File_Name",File_Name);
+            startActivity(intent1);
+            finish();
         }catch(Exception e){
             Toast.makeText(getApplicationContext(),"블루투스 연결 중 오류가 발생했습니다.",Toast.LENGTH_LONG);
         }

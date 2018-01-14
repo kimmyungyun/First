@@ -283,46 +283,48 @@ public class Epub2Html extends AppCompatActivity {
         ArrayList<String> xmlParse_htmllist = new ArrayList<String>();
         String fileName = file.getPath();
         BufferedReader xmlParseIn = new BufferedReader(new FileReader(fileName));
-
+        BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent() + "/" + "epub2html.txt", true));
         String line = "", data = "";
         try {
-            BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent() + "/" + "epub2html.txt"));
+
             while ((line = xmlParseIn.readLine()) != null) {
 
-                    if (line.contains("<docTitle>")) {
-                        while (!line.contains("</docTitle>"))
-                            line = xmlParseIn.readLine();
-                    } else if (line.contains("<text")) {
-                        data = line.substring(line.indexOf(">") + 1, line.lastIndexOf("<"));
-                        xmlParseWriter.write(data);
-                        data = null;
-                    } else if (line.contains("<content src=")) {
-                        String contentPath = file.getParent() + "/" + line.substring(line.indexOf("=") + 2, line.lastIndexOf("/") - 1);
-                        if (contentPath.contains(".html#") || contentPath.contains(".xml#")) {
-                            contentPath = contentPath.substring(0, contentPath.lastIndexOf("#"));
-                        }
-                        if (!xmlParse_htmllist.contains(contentPath)) {
-                            File fff = new File(contentPath);
-                            if (fff.exists()) {
-                                Document d = Jsoup.parse(fff, "UTF-8");
-                                //data=d.text();
-                                Elements e = d.select("p");
-                                for (Element x : e) {
-                                    data = x.text();
-                                    xmlParseWriter.write(data);
+                if (line.contains("<docTitle>")) {
+                    while (!line.contains("</docTitle>"))
+                        line = xmlParseIn.readLine();
+                } else if (line.contains("<text")) {
+                    data = line.substring(line.indexOf(">") + 1, line.lastIndexOf("<"));
+                    xmlParseWriter.write(data);
+                    data = null;
+                } else if (line.contains("<content src=")) {
+                    String contentPath = file.getParent() + "/" + line.substring(line.indexOf("=") + 2, line.lastIndexOf("/") - 1);
+                    if (contentPath.contains(".html#") || contentPath.contains(".xml#")) {
+                        contentPath = contentPath.substring(0, contentPath.lastIndexOf("#"));
+                    }
+                    if (!xmlParse_htmllist.contains(contentPath)) {
+                        File fff = new File(contentPath);
+                        if (fff.exists()) {
+                            Document d = Jsoup.parse(fff, "UTF-8");
+                            //data=d.text();
+                            Elements e = d.select("p");
+                            for (Element x : e) {
+                                data = x.text();
+                                xmlParseWriter.write(data);
 
-                                }
-                                xmlParse_htmllist.add(contentPath);
                             }
+                            d = null;
+                            xmlParse_htmllist.add(contentPath);
                         }
                     }
                 }
-
-
-            } catch(Throwable e){
-                throw e;
             }
 
+
+        } catch (Throwable e) {
+            throw e;
+        }
+        xmlParseWriter.flush();
+        xmlParseWriter.close();
         xmlParseIn.close();
     }
 

@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,11 +23,13 @@ public class Dot_Show extends AppCompatActivity {
     private LinearLayout parentLL;
     private LinearLayout.LayoutParams plControl;
     private LinearLayout parentLL2;
+    private GridView girdview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot__show);
         //부모 뷰
+
         linearLayout = (LinearLayout)findViewById(R.id.linear);
         //가로 줄 리니어 레이어
         parentLL = new LinearLayout(this);
@@ -42,6 +45,7 @@ public class Dot_Show extends AppCompatActivity {
         parentLL2.setLayoutParams(plControl2);
         parentLL2.setOrientation(LinearLayout.VERTICAL);
 
+        girdview = (GridView) findViewById(R.id.Dot_Show);
         Toast.makeText(getApplicationContext(), "읽는것.", Toast.LENGTH_LONG).show();
 
         Intent intent = getIntent();
@@ -77,7 +81,9 @@ public class Dot_Show extends AppCompatActivity {
                 view1.setText(tmp);
                 view1.setPadding(15,0,10,0);
                 j++;
+               // girdview.addView(view1);
                 parentLL.addView(view1);
+
                 if(j%8==0){
                     parentLL2.addView(parentLL);
                     parentLL = new LinearLayout(this);
@@ -86,8 +92,9 @@ public class Dot_Show extends AppCompatActivity {
                     parentLL.setLayoutParams(plControl2);
                     parentLL.setOrientation(LinearLayout.HORIZONTAL);
                 }
+
             }
-            linearLayout.addView(parentLL2);
+            //linearLayout.addView(parentLL2);
         }catch(Exception e){
             e.printStackTrace();
         }

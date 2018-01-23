@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.first.Dot_Show">
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,4 +24,19 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 </ScrollView>
+<!--
+    <GridView
+        android:id="@+id/Dot_Show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#F7B5F8"
+        android:columnWidth="75dp"
+        android:gravity="center"
+        android:maxHeight="80dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp"></GridView>
+        -->
 </android.support.constraint.ConstraintLayout>

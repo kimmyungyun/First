@@ -3,6 +3,7 @@ package com.example.user.first;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,12 +25,14 @@ public class Dot_Show extends AppCompatActivity {
     private LinearLayout.LayoutParams plControl;
     private LinearLayout parentLL2;
     private GridView girdview;
+    private DotShowAdapter adapter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot__show);
+        adapter = new DotShowAdapter();
         //부모 뷰
-
+/*      이전버전 Dot_show
         linearLayout = (LinearLayout)findViewById(R.id.linear);
         //가로 줄 리니어 레이어
         parentLL = new LinearLayout(this);
@@ -44,7 +47,7 @@ public class Dot_Show extends AppCompatActivity {
         plControl2.setMargins(5,5,5,5);
         parentLL2.setLayoutParams(plControl2);
         parentLL2.setOrientation(LinearLayout.VERTICAL);
-
+*/
         girdview = (GridView) findViewById(R.id.Dot_Show);
         Toast.makeText(getApplicationContext(), "읽는것.", Toast.LENGTH_LONG).show();
 
@@ -54,6 +57,8 @@ public class Dot_Show extends AppCompatActivity {
         int data;
         char ch;
 
+        //그리드 뷰 어댑터 붙여주기.
+        girdview.setAdapter(adapter);
         File file = new File(File_Name);
         try{
             fr=new FileReader(file);
@@ -72,6 +77,7 @@ public class Dot_Show extends AppCompatActivity {
                     if(i==4 || i==2)
                         tmp=tmp+'\n';
                 }
+                /*
                 TextView view1 = new TextView(this);
                 view1.setId(j);
                 view1.setTextSize(15);
@@ -81,7 +87,9 @@ public class Dot_Show extends AppCompatActivity {
                 view1.setText(tmp);
                 view1.setPadding(15,0,10,0);
                 j++;
-               // girdview.addView(view1);
+                */
+                ItemAdd(ch);
+                /*  이전 버젼 Dot_Show
                 parentLL.addView(view1);
 
                 if(j%8==0){
@@ -92,11 +100,80 @@ public class Dot_Show extends AppCompatActivity {
                     parentLL.setLayoutParams(plControl2);
                     parentLL.setOrientation(LinearLayout.HORIZONTAL);
                 }
-
+                */
             }
             //linearLayout.addView(parentLL2);
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    public void ItemAdd(char A){
+        switch (A) {
+            case 0b00010000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a001000), "ㄱ");
+                break;
+            case 0b00110000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a110000), "ㄱ");
+                break;
+            case 0b011000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a011000), "ㄱ");
+                break;
+            case 0b000100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000100), "ㄱ");
+                break;
+            case 0b100100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a100100), "ㄱ");
+                break;
+            case 0b010100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a010100), "ㄱ");
+                break;
+            case 0b000001:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000001), "ㄱ");
+                break;
+            case 0b010001:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a010001), "ㄱ");
+                break;
+            case 0b000101:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000101), "ㄱ");
+                break;
+            case 0b111000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a111000), "ㄱ");
+                break;
+            case 0b101100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b110100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b011100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+           // case 0b000001:    된소리 부분
+           //     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+            case 0b100000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b001100:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b000110:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b001000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b001001:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b101000:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            case 0b000010:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
+            default:
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
+                break;
         }
     }
 

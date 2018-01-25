@@ -1,7 +1,7 @@
 package com.example.user.first;
 
 /**
- * Created by 명윤 on 2017-12-05.
+ * Created by 종수 on 2017-12-05.
  */
 
 public class Dot {
@@ -25,13 +25,9 @@ public class Dot {
     16 초2 중2 종1
     17 초2 중2
      */
-
     int whatcase=0;
-    //출력을 byte로
     byte cb_cho1,cb_cho2, cb_jung1, cb_jung2, cb_jong1, cb_jong2;
-
     //자바 생성자 초성중성 종성을 받아서 case별로 구분
-
     public Dot(int cb_cho, int cb_jung, int cb_jong){ // 초성 중성 종성을 받아서 점자로 출력하게해줌 cb=converbraill의 약자
         //초성이 'ㅇ'일 경우
         if(cb_cho==11) {

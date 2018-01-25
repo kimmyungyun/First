@@ -109,45 +109,6 @@ public class Dot_Show extends AppCompatActivity {
     }
     public void ItemAdd(char A){
         switch (A) {
-            case 0b00010000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a001000), "ㄱ");
-                break;
-            case 0b00110000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a110000), "ㄱ");
-                break;
-            case 0b011000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a011000), "ㄱ");
-                break;
-            case 0b000100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000100), "ㄱ");
-                break;
-            case 0b100100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a100100), "ㄱ");
-                break;
-            case 0b010100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a010100), "ㄱ");
-                break;
-            case 0b000001:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000001), "ㄱ");
-                break;
-            case 0b010001:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a010001), "ㄱ");
-                break;
-            case 0b000101:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a000101), "ㄱ");
-                break;
-            case 0b111000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.a111000), "ㄱ");
-                break;
-            case 0b101100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b110100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b011100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
            // case 0b000001:    된소리 부분
            //     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
             case 0b100000:

@@ -74,43 +74,43 @@ public class Dot {
         switch (cb_cho) {
             // ㄱ
             case 0:
-                return 0b00010000;
+                return 0b001000;
             //ㄴ
             case 2:
-                return 0b00110000;
+                return 0b001001;
             //ㄷ
             case 3:
-                return 0b00011000;
+                return 0b001010;
             // ㄹ
             case 5:
-                return 0b00000100;
+                return 0b010000;
             //ㅁ
             case 6:
-                return 0b00100100;
+                return 0b010001;
             //ㅂ
             case 7:
-                return 0b00010100;
+                return 0b011000;
             // ㅅ
             case 9:
-                return 0b00000001;
+                return 0b100000;
             // ㅈ
             case 12:
-                return 0b00010001;
+                return 0b101000;
             // ㅊ
             case 14:
-                return 0b00000101;
+                return 0b110000;
             // ㅋ
             case 15:
-                return 0b00111000;
+                return 0b001011;
             // ㅌ
             case 16:
-                return 0b00101100;
+                return 0b010011;
             // ㅍ
             case 17:
-                return 0b00110100;
+                return 0b011001;
             // ㅎ
             default:
-                return 0b00011100;
+                return 0b011010;
         }
 
     }
@@ -119,7 +119,7 @@ public class Dot {
     protected void findcho2 (int cb_cho)
     {
         //된소리
-        cb_cho1=0b00000001;
+        cb_cho1=0b100000;
         //찾아보자이제 쌍자음에서1빼면 그자음
         cb_cho2=findcho1(cb_cho-1);
     }
@@ -127,67 +127,67 @@ public class Dot {
     protected void findjung1(int cb_jung){
         switch(cb_jung){
             //ㅏ
-            case 0: cb_jung1=0b00101001;
+            case 0: cb_jung1=0b100011;
                 break;
             //ㅐ
-            case 1: cb_jung1=0b00101110;
+            case 1: cb_jung1=0b010111;
                 break;
             //ㅑ
-            case 2: cb_jung1=0b00010110;
+            case 2: cb_jung1=0b011100;
                 break;
             //ㅒ
-            case 3: cb_jung1=0b00010110; cb_jung2=0b00101110;
+            case 3: cb_jung1=0b011100; cb_jung2=0b010111;
                 break;
             //ㅓ
-            case 4: cb_jung1=0b00011010;
+            case 4: cb_jung1=0b001110;
                 break;
             //ㅔ
-            case 5: cb_jung1=0b00110110;
+            case 5: cb_jung1=0b011101;
                 break;
             //ㅕ
-            case 6: cb_jung1=0b00100101;
+            case 6: cb_jung1=0b110001;
                 break;
             //ㅖ
-            case 7: cb_jung1=0b00010010;
+            case 7: cb_jung1=0b001100;
                 break;
             //ㅗ
-            case 8: cb_jung1=0b00100011;
+            case 8: cb_jung1=0b100101;
                 break;
             //ㅠ
-            case 17: cb_jung1=0b00110001;
+            case 17: cb_jung1=0b101001;
                 break;
             //ㅘ
-            case 9: cb_jung1=0b00101011;
+            case 9: cb_jung1=0b100111;
                 break;
             //ㅛ
-            case 12: cb_jung1=0b00010011;
+            case 12: cb_jung1=0b101100;
                 break;
             //ㅙ
-            case 10: cb_jung1=0b00101011; cb_jung2=0b00101110;
+            case 10: cb_jung1=0b100111; cb_jung2=0b010111;
                 break;
             //ㅚ
-            case 11: cb_jung1=0b00110111;
+            case 11: cb_jung1=0b111101;
                 break;
             //ㅜ
-            case 13: cb_jung1=0b00110010;
+            case 13: cb_jung1=0b001101;
                 break;
             //ㅝ
-            case 14: cb_jung1=0b00111010;
+            case 14: cb_jung1=0b001111;
                 break;
             //ㅞ
-            case 15: cb_jung1=0b00111010; cb_jung2=0b00101110;
+            case 15: cb_jung1=0b001111; cb_jung2=0b010111;
                 break;
             //ㅟ
-            case 16: cb_jung1=0b00110010; cb_jung2=0b00101110;
+            case 16: cb_jung1=0b001101; cb_jung2=0b010111;
                 break;
             //ㅡ
-            case 18: cb_jung1=0b00011001;
+            case 18: cb_jung1=0b101010;
                 break;
             //ㅢ
-            case 19: cb_jung1=0b00011101;
+            case 19: cb_jung1=0b111010;
                 break;
             //ㅣ
-            default: cb_jung1=0b00100110;
+            default: cb_jung1=0b010101;
                 break;
             }
        }
@@ -196,45 +196,48 @@ public class Dot {
     protected byte findjong1 (int cb_jong){
         // ㄱ
         if(cb_jong == 1)
-            return 0b00100000;
+            return 0b000001;
          /*   || cb_jong == 4 || cb_jong == 7 || cb_jong == 8 || cb_jong == 16 || cb_jong == 17 || cb_jong == 19 || cb_jong == 21 ||
                 cb_jong == 22 || cb_jong == 23 || cb_jong == 24 || cb_jong == 25 || cb_jong == 26 || cb_jong == 27*/
             // ㄴ
         else if( cb_jong == 4 )
-            return 0b00001100;
+            return 0b010010;
             // ㄷ
         else if( cb_jong == 7 )
-            return 0b00000110;
+            return 0b010100;
             //ㄹ
         else if( cb_jong == 8 )
-            return 0b00001000;
+            return 0b000010;
             //ㅁ
         else if( cb_jong == 16 )
-            return 0b00001001;
+            return 0b100010;
             //ㅂ
         else if( cb_jong == 17 )
-            return 0b00101000;
+            return 0b000011;
             //ㅅ
         else if( cb_jong == 19 )
-            return 0b00000010;
+            return 0b000100;
             //ㅇ
         else if( cb_jong == 21 )
-            return 0b00001111;
+            return 0b110110;
             //ㅈ
         else if( cb_jong == 22 )
-            return 0b00100010;
-            //ㅋ
+            return 0b000101;
+            //ㅊ
         else if( cb_jong == 23 )
-            return 0b00001110;
-            //ㅌ
+            return 0b000110;
+            //ㅋ
         else if( cb_jong == 24 )
-            return 0b00001011;
-            //ㅍ
+            return 0b010110;
+            //ㅌ
         else if( cb_jong == 25 )
-            return 0b00001101;
+            return 0b100110;
+           //ㅍ
+        else if(cb_jong == 26)
+            return 0b110010;
             //ㅎ
         else
-            return 0b00000111;
+            return 0b110100;
     }
 
     //종성이 2개일때
@@ -302,8 +305,10 @@ public class Dot {
                 break;
             //ㅆ
             case 20:
-                cb_jong1=findjong1(20);
-                cb_jong2=findjong1(20);
+                //이부분 약어 있음 받침 ㅆ
+                //cb_jong1=findjong1(20);
+                //cb_jong2=findjong1(20);
+                cb_jong1 = 0b001100;
                 break;
 
             }

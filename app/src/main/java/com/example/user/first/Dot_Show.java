@@ -108,6 +108,14 @@ public class Dot_Show extends AppCompatActivity {
         }
     }
     public void ItemAdd(char A){
+        String Name="";
+        for(int i=5;i>0;i--)
+        {
+            if((( A >> i) & 0b1) == 1)
+                Name = Name+"1";
+            else if((( A >> i) & 0b1)==0)
+                Name = Name+"0";
+        }
         switch (A) {
            // case 0b000001:    된소리 부분
            //     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");

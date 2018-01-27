@@ -1,16 +1,12 @@
 package com.example.user.first;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.SystemClock;
+
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -116,34 +112,6 @@ public class Dot_Show extends AppCompatActivity {
             else if((( A >> i) & 0b1)==0)
                 Name = Name+"0";
         }
-        switch (A) {
-           // case 0b000001:    된소리 부분
-           //     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-            case 0b100000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b001100:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b000110:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b001000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b001001:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b101000:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            case 0b000010:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-            default:
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.text), "ㄱ");
-                break;
-        }
+        adapter.addItem(ContextCompat.getDrawable(this,getResources().getIdentifier(Name, "drawable", this.getPackageName())), "ㄱ");
     }
-
 }

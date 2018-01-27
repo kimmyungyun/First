@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class DotShowAdapter extends BaseAdapter {
-    private ArrayList<ListViewItem> girdViewItemList = new ArrayList<ListViewItem>();
+    private ArrayList<DotShowItem> girdViewItemList = new ArrayList<DotShowItem>();
     public DotShowAdapter(){
     }
     //Adapter에 사용 되는 데이터의 개수를 리턴. : 필수 구현
@@ -38,8 +38,12 @@ public class DotShowAdapter extends BaseAdapter {
         ImageView iconImageView = (ImageView)convertView.findViewById(R.id.Dot_img);
         TextView titleTextView = (TextView) convertView.findViewById(R.id.Dot_txt);
 
+        ImageView iconImageView2 = (ImageView)convertView.findViewById(R.id.Dot_img2);
+        ImageView iconImageView3 = (ImageView)convertView.findViewById(R.id.Dot_img3);
+        TextView titleTextView2 = (TextView) convertView.findViewById(R.id.Dot_txt2);
+
         //Data Set(ListViewItemList) 에서 position 에 위치한 데이터 참조 획득
-        ListViewItem listViewItem = girdViewItemList.get(position);
+        DotShowItem listViewItem = girdViewItemList.get(position);
 
         //아이템 내 각 위젯에 데이터 반영
         iconImageView.setImageDrawable(listViewItem.getIcon());
@@ -55,13 +59,14 @@ public class DotShowAdapter extends BaseAdapter {
 
     //지정한 위치에 있는 데이터 리턴 : 필수 구현
     @Override
-    public ListViewItem getItem(int position) {
+    public DotShowItem getItem(int position) {
         return girdViewItemList.get(position);
     }
 
+    //addItem 에다가 type int 라는 변수를 추가해서 이미지뷰를 1개 사용할지, 2개 사용할지 결정해서 add 할거임.
     //아이템 데이터 추가를 위한 함수, 개발자가 원하는대로 작성 가능
     public void addItem(Drawable icon, String title) {
-        ListViewItem item = new ListViewItem();
+        DotShowItem item = new DotShowItem();
 
         item.setIcon(icon);
         item.setTitle(title);

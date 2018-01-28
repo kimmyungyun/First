@@ -97,7 +97,8 @@ public class File_Read extends AppCompatActivity {
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    intent1 = new Intent(File_Read.this, BlueTooth.class);
+                    //intent1 = new Intent(File_Read.this, BlueTooth.class);        //밑에꺼 지우고 이걸로 실행 해야됨. 잠깐 주석.
+                    intent1 = new Intent(File_Read.this, Dot_Show.class);
                     intent1.putExtra("File_Name",Root_Folder+"/"+FileName+".dat");
                     startActivity(intent1);
                     finish();

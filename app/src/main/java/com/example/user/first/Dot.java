@@ -27,7 +27,7 @@ public class Dot {
      */
     int whatcase=0;
     byte cb_cho1, cb_cho2, cb_jung1, cb_jung2, cb_jong1, cb_jong2;
-    String ch_cho1, ch_cho2, ch_jung, ch_jong1, ch_jong2;       //바이트를 리턴할 때 문자도 같이 리턴할 생각.
+    String ch_cho, ch_jung, ch_jong1;       //바이트를 리턴할 때 문자도 같이 리턴할 생각.
     //자바 생성자 초성중성 종성을 받아서 case별로 구분
     public Dot(int cb_cho, int cb_jung, int cb_jong){ // 초성 중성 종성을 받아서 점자로 출력하게해줌 cb=converbraill의 약자
         //초성이 'ㅇ'일 경우

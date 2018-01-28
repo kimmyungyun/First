@@ -35,7 +35,7 @@
         android:columnWidth="75dp"
         android:gravity="center"
         android:maxHeight="80dp"
-        android:numColumns="auto_fit"
+        android:numColumns="5"
         android:stretchMode="columnWidth"
         android:verticalSpacing="2dp"></GridView>
 

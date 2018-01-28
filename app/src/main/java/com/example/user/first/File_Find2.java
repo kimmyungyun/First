@@ -41,7 +41,7 @@ public class File_Find2 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //눌린 위치의 정보를 가져옴
-                ListViewItem ob = adapter.getItem(position);
+                ListViewItem2 ob = adapter.getItem(position);
                 //눌렀을 때 폴더 이동 함수를 호출
                 itemClick(ob.getTitle(),ob.getDesc());
             }

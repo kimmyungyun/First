@@ -41,6 +41,7 @@ public class BlueTooth extends AppCompatActivity {
     String File_Name;
     //Dat파일 불러올 것
     File Send_File;
+    String File_Path;   //변환할 파일.
     private FileReader fr = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class BlueTooth extends AppCompatActivity {
         setContentView(R.layout.activity_blue_tooth);
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
-        File_Name = intent.getStringExtra("File_Name");
+        File_Path = intent.getStringExtra("File_Path");
         //아직 방법을 몰라서 그러는데 블루투스 목록을 띄워줄 때 연결 안된 블루투스는 목록에 안뜸.
         //사용 방법을 알려 주던지, 아니면 한번 등록을 하면은 계속해서 자동으로 연결 해주는 방법을 찾아야할듯.
 
@@ -188,6 +189,7 @@ public class BlueTooth extends AppCompatActivity {
             }
             Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
             intent1.putExtra("File_Name",File_Name);
+            intent1.putExtra("File_Path",File_Path);
             startActivity(intent1);
             finish();
         }catch(Exception e){

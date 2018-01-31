@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class DotShowAdapter extends BaseAdapter {
     private ArrayList<DotShowItem> girdViewItemList = new ArrayList<DotShowItem>();
+    int type;
     public DotShowAdapter(){
     }
     //Adapter에 사용 되는 데이터의 개수를 리턴. : 필수 구현
@@ -26,7 +27,11 @@ public class DotShowAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         final int pos = position;
         final Context context = parent.getContext();
-
+        ImageView iconImageView = null;
+        TextView titleTextView = null;
+        ImageView iconImageView2 = null;
+        ImageView iconImageView3 = null;
+        TextView titleTextView2 = null;
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //외부 XML 파일에 있는 resource로 부터 가져옴.
@@ -35,13 +40,20 @@ public class DotShowAdapter extends BaseAdapter {
         }
 
         //화면에 표시될 View(Layout 이 inflate된)으로 부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView)convertView.findViewById(R.id.Dot_img);
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.Dot_txt);
-
-        ImageView iconImageView2 = (ImageView)convertView.findViewById(R.id.Dot_img2);
-        ImageView iconImageView3 = (ImageView)convertView.findViewById(R.id.Dot_img3);
-        TextView titleTextView2 = (TextView) convertView.findViewById(R.id.Dot_txt2);
-
+        //ImageView iconImageView = (ImageView)convertView.findViewById(R.id.Dot_img);
+        //TextView titleTextView = (TextView) convertView.findViewById(R.id.Dot_txt);
+        //ImageView iconImageView2 = (ImageView)convertView.findViewById(R.id.Dot_img2);
+        //ImageView iconImageView3 = (ImageView)convertView.findViewById(R.id.Dot_img3);
+        //TextView titleTextView2 = (TextView) convertView.findViewById(R.id.Dot_txt2);
+        if(type == 1) {
+            iconImageView = ViewHolderHelper.get(convertView, R.id.Dot_img);
+            titleTextView = ViewHolderHelper.get(convertView, R.id.Dot_txt);
+        }
+        if(type == 2) {
+            iconImageView2 = ViewHolderHelper.get(convertView, R.id.Dot_img2);
+            iconImageView3 = ViewHolderHelper.get(convertView, R.id.Dot_img3);
+            titleTextView2 = ViewHolderHelper.get(convertView, R.id.Dot_txt2);
+        }
         //Data Set(ListViewItemList) 에서 position 에 위치한 데이터 참조 획득
         DotShowItem listViewItem = girdViewItemList.get(position);
 
@@ -65,11 +77,13 @@ public class DotShowAdapter extends BaseAdapter {
 
     //addItem 에다가 type int 라는 변수를 추가해서 이미지뷰를 1개 사용할지, 2개 사용할지 결정해서 add 할거임.
     //아이템 데이터 추가를 위한 함수, 개발자가 원하는대로 작성 가능
-    public void addItem(Drawable icon, String title) {
+    public void addItem(Drawable icon, Drawable icon2, String title, int t) {
         DotShowItem item = new DotShowItem();
-
+        type = t;
         item.setIcon(icon);
+        item.setIcon2(icon2);
         item.setTitle(title);
         girdViewItemList.add(item);
     }
 }
+

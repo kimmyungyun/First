@@ -2,6 +2,7 @@ package com.example.user.first;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,28 +39,29 @@ public class DotShowAdapter extends BaseAdapter {
             //요 밑에 줄 file_find 수정 해야됨. xml 따로 만들어서 해야함.
             convertView = inflater.inflate(R.layout.dot_show,parent, false);
         }
-
+        //Data Set(ListViewItemList) 에서 position 에 위치한 데이터 참조 획득
+        DotShowItem listViewItem = girdViewItemList.get(position);
         //화면에 표시될 View(Layout 이 inflate된)으로 부터 위젯에 대한 참조 획득
-        //ImageView iconImageView = (ImageView)convertView.findViewById(R.id.Dot_img);
-        //TextView titleTextView = (TextView) convertView.findViewById(R.id.Dot_txt);
-        //ImageView iconImageView2 = (ImageView)convertView.findViewById(R.id.Dot_img2);
-        //ImageView iconImageView3 = (ImageView)convertView.findViewById(R.id.Dot_img3);
-        //TextView titleTextView2 = (TextView) convertView.findViewById(R.id.Dot_txt2);
+        Log.d("type 값.", "type : "+type );
         if(type == 1) {
             iconImageView = ViewHolderHelper.get(convertView, R.id.Dot_img);
             titleTextView = ViewHolderHelper.get(convertView, R.id.Dot_txt);
+            //아이템 내 각 위젯에 데이터 반영
+            iconImageView.setImageDrawable(listViewItem.getIcon());
+            titleTextView.setText(listViewItem.getTitle());
         }
-        if(type == 2) {
+        //이부분 걸리지를 않음..
+        else if(type == 2) {
             iconImageView2 = ViewHolderHelper.get(convertView, R.id.Dot_img2);
             iconImageView3 = ViewHolderHelper.get(convertView, R.id.Dot_img3);
             titleTextView2 = ViewHolderHelper.get(convertView, R.id.Dot_txt2);
-        }
-        //Data Set(ListViewItemList) 에서 position 에 위치한 데이터 참조 획득
-        DotShowItem listViewItem = girdViewItemList.get(position);
 
-        //아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageDrawable(listViewItem.getIcon());
-        titleTextView.setText(listViewItem.getTitle());
+            //아이템 내 각 위젯에 데이터 반영
+            iconImageView2.setImageDrawable(listViewItem.getIcon());
+            iconImageView3.setImageDrawable(listViewItem.getIcon2());
+            titleTextView2.setText(listViewItem.getTitle());
+        }
+
 
         return convertView;
     }

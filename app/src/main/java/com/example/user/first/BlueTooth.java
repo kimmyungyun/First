@@ -155,14 +155,10 @@ public class BlueTooth extends AppCompatActivity {
 
             //요 부분에다가 데이터 송신 하는거 넣어야 됨.
             int data;
-
             //전송할 파일 읽어오기
-
             Send_File = new File(File_Name);
             try {
-
                 Toast.makeText(getApplicationContext(),"블루투스 연결 완료했습니다.",Toast.LENGTH_LONG);
-
                 // 전송을 시작합니다.
                 System.out.println("확인5");
                 data=0b10000000;    //요거가 데이터 전송 시작.
@@ -177,7 +173,6 @@ public class BlueTooth extends AppCompatActivity {
                 }
             }catch(Exception e)
             {            }
-
 
             // 전송을 끝.
             try{

@@ -150,9 +150,7 @@ public class File_Read extends AppCompatActivity {
                 alert.show();
             }
             else
-            {
                 ConvertFile();
-            }
 
         }catch(Exception e){
         }

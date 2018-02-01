@@ -1,5 +1,4 @@
 package com.example.user.first;
-//파일 탐색기 교체될 액티비티 ( 이걸로 교체할거임)
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -172,12 +170,12 @@ public class File_Find2 extends AppCompatActivity {
             // 180103 21시 dat파일을 누르면 dot_show가 실행되서 dat파일이 바뀜
             else if(file.getName().endsWith(".dat"))
             {
-                Intent intent = new Intent(
-                        getApplicationContext(), Dot_Show.class);
+                Intent intent = new Intent(getApplicationContext(), Dot_Show.class);
                 intent.putExtra("File_Name",Path);
                 startActivity(intent);
                 finish();
             }
+            //적용 되지 않는 파일 선택시.. 인데 없어도 되는 부분일 듯.
             else {
                 new AlertDialog.Builder(this)
                         .setTitle("[" + file.getName() + "]")

@@ -137,6 +137,24 @@ public class Dot {
         //찾아보자이제 쌍자음에서1빼면 그자음
         cb_cho2=findcho1(cb_cho-1);
         switch(cb_cho-1){
+            // ㄱ
+            case 0:
+                ch_cho = "ㄲ" ;
+            //ㄷ
+            case 3:
+                ch_cho = "ㄸ" ;
+            //ㅂ
+            case 7:
+                ch_cho = "ㅃ" ;
+            // ㅅ
+            case 9:
+                ch_cho = "ㅆ" ;
+            // ㅈ
+            case 12:
+                ch_cho = "ㅉ" ;
+
+                default:
+                    ch_cho=" ";
 
         }
     }

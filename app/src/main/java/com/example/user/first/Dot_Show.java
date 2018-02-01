@@ -62,7 +62,9 @@ public class Dot_Show extends AppCompatActivity {
                         case 1:
                             break;
                         default:
-                            ItemAdd((char)dot.cb_cho1,dot.ch_cho);
+                            //ItemAdd((char)dot.cb_cho1,dot.ch_cho);
+                            // 18.02.01 13:43 박종수 dot.ch_cho-> string: " "로 하여 빈칸이 나오게
+                            ItemAdd((char)dot.cb_cho1, " ");
                             ItemAdd((char)dot.cb_cho2,dot.ch_cho);
                             break;
                     }
@@ -126,4 +128,5 @@ public class Dot_Show extends AppCompatActivity {
         }
         adapter.addItem(ContextCompat.getDrawable(this,getResources().getIdentifier(Name, "drawable", this.getPackageName())),null, Hangul,1);
     }
+
 }

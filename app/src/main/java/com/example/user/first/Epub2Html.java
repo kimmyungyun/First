@@ -290,13 +290,13 @@ public class Epub2Html extends AppCompatActivity {
             while ((line = xmlParseIn.readLine()) != null) {
 
                 if (line.contains("<docTitle>")) {
-                    while (!line.contains("</docTitle>"))
-                        line = xmlParseIn.readLine();
-                } else if (line.contains("<text")) {
+                    //while (!line.contains("</docTitle>"))
+                      //  line = xmlParseIn.readLine();
+                } /*else if (line.contains("<text")) {
                     data = line.substring(line.indexOf(">") + 1, line.lastIndexOf("<"));
                     xmlParseWriter.write(data);
                     data = null;
-                } else if (line.contains("<content src=")) {
+                }*/ else if (line.contains("<content src=")) {
                     String contentPath = file.getParent() + "/" + line.substring(line.indexOf("=") + 2, line.lastIndexOf("/") - 1);
                     if (contentPath.contains(".html#") || contentPath.contains(".xml#")) {
                         contentPath = contentPath.substring(0, contentPath.lastIndexOf("#"));

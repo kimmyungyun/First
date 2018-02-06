@@ -14,12 +14,20 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         ImageButton b = (ImageButton)findViewById(R.id.imageButton);
+        ImageButton b2 = (ImageButton)findViewById(R.id.imageButton2);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(
                         Main2Activity.this, File_Find2.class);
                 startActivity(intent);
+            }
+        });
+        //버튼 클릭하면 Dat 파일로 변환 된 것들만 보여주어 읽을 수 있는 부분을 만들 예정.
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

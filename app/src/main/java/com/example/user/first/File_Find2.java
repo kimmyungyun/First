@@ -87,8 +87,6 @@ public class File_Find2 extends AppCompatActivity {
     }
     private void itemClick(String name, String path)
     {
-        //일단은 listview 어댑터에 넣은 파일 이름이랑 파일 위치만 띄웠는데 이것을 고쳐서
-        //txt파일 클릭시에 이 파일을 사용 할거냐는 다이얼로그를 띄우고, 그 파일을 점자 파일로 변환 시켜야함.
         //epub 파일의 경우 zip 파일로 바꾸고 해부해서 html 파일 찾아내기.
         File file = new File(path);
         if(file.isDirectory())

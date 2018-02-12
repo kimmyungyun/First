@@ -27,7 +27,9 @@ public class Main2Activity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(
+                        Main2Activity.this, DotFile_Show.class);
+                startActivity(intent);
             }
         });
     }

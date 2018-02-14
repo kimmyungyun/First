@@ -3,6 +3,7 @@ package com.example.user.first;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class DotFile_Show extends AppCompatActivity {
                 itemFiles.add(f.getName());
             }
         }
+        Move_folder();
     }
     private void itemClick(String name, String path)
     {
@@ -116,5 +118,19 @@ public class DotFile_Show extends AppCompatActivity {
                         }).show();
             }
         }
+    }
+    private void Move_folder()
+    {
+        ListViewAdapter adapter2 = new ListViewAdapter();
+        adapter = adapter2;
+        listview.setAdapter(adapter);
+        if(itemFiles.size() == 0)
+            adapter.addItem(ContextCompat.getDrawable(this,R.drawable.etc),"파일이 존재하지 않습니다.","");
+        for(int i=0;i<itemFiles.size();i++)
+        {
+            // 여기서 listview 에 넣음
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
+        }
+        adapter.notifyDataSetChanged();
     }
 }

@@ -118,7 +118,6 @@ public class Dot_Show extends AppCompatActivity {
         Log.d("Name 값.", "ItemAdd: Name : "+Name +" Name2 : "+Name2);
         Drawable tmp1 = ContextCompat.getDrawable(this,getResources().getIdentifier(Name, "drawable", this.getPackageName()));
         Drawable tmp2 = ContextCompat.getDrawable(this,getResources().getIdentifier(Name2, "drawable", this.getPackageName()));
-
         Log.d("Drawable 값.", "ItemAdd: Name : "+tmp1 +" Name2 : "+tmp2);
         adapter.addItem(tmp1,tmp2, Hangul,type);
     }

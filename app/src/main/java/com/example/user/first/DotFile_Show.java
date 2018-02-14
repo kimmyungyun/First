@@ -89,7 +89,7 @@ public class DotFile_Show extends AppCompatActivity {
                         //확인 버튼 누르면 이 텍스트 파일을 읽어 와야됨.
                         //다른 액티비티에서 읽어 올려고 함.
                         Intent intent = new Intent(
-                                getApplicationContext(), File_Read.class);
+                                getApplicationContext(), Dot_Show.class);
                         //파일 경로 전송.
                         intent.putExtra("File_Path", Path);
                         intent.putExtra("Root_Path",root);

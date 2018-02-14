@@ -42,9 +42,9 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         //화면에 표시될 View(Layout 이 inflate된)으로 부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1);
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.textView1);
-        TextView descTextView = (TextView) convertView.findViewById(R.id.textView2);
+        ImageView iconImageView = ViewHolderHelper.get(convertView, R.id.imageView1);
+        TextView titleTextView = ViewHolderHelper.get(convertView, R.id.textView1);
+        TextView descTextView = ViewHolderHelper.get(convertView, R.id.textView2);
 
         //Data Set(ListViewItemList) 에서 position 에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);

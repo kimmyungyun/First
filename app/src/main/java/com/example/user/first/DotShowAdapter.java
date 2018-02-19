@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * Created by 명윤 on 2018-01-23.
  */
 
+//타입별로 Layout 수정 부분 출처 : http://recipes4dev.tistory.com/57
 public class DotShowAdapter extends BaseAdapter {
     private ArrayList<DotShowItem> girdViewItemList = new ArrayList<DotShowItem>();
     private static final int ITEM_VIEW_TYPE_ONCE = 0;

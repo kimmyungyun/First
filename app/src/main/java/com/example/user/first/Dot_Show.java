@@ -44,9 +44,9 @@ public class Dot_Show extends AppCompatActivity {
 
             while((line = reader.read()) != -1) {
                 if (line == 32)    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
-                    ItemAdd((char)0b0,(char)0b0," ",1);
+                    ItemAdd((char)0b0,(char)0b0," ",0);
                 else if (line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
-                    ItemAdd((char)0b0,(char)0b0," ",1);
+                    ItemAdd((char)0b0,(char)0b0," ",0);
                 else {
                     line = line - 0xAC00;
                     jong = line % 28;
@@ -57,14 +57,14 @@ public class Dot_Show extends AppCompatActivity {
                     //초성일 경우 쓰기
                     switch (dot.whatcase / 6) {
                         case 0:
-                            ItemAdd((char)dot.cb_cho1,(char)0b0,dot.ch_cho,1);
+                            ItemAdd((char)dot.cb_cho1,(char)0b0,dot.ch_cho,0);
                             break;
                         case 1:
                             break;
                         default:
                             //ItemAdd((char)dot.cb_cho1,dot.ch_cho);
                             // 18.02.01 13:43 박종수 dot.ch_cho-> string: " "로 하여 빈칸이 나오게
-                            ItemAdd((char)dot.cb_cho1,(char)dot.cb_cho2 ," ",2);
+                            ItemAdd((char)dot.cb_cho1,(char)dot.cb_cho2 ," ",1);
                             //ItemAdd((char)dot.cb_cho2,dot.ch_cho,2);
                             break;
                     }
@@ -72,10 +72,10 @@ public class Dot_Show extends AppCompatActivity {
                     //중성일 경우 쓰기
                     switch ((dot.whatcase % 6) / 3) {
                         case 0:
-                            ItemAdd((char)dot.cb_jung1, (char)0b0,dot.ch_jung, 1);
+                            ItemAdd((char)dot.cb_jung1, (char)0b0,dot.ch_jung, 0);
                             break;
                         default:
-                            ItemAdd((char)dot.cb_jung1, (char)dot.cb_jung2,dot.ch_jung,2);
+                            ItemAdd((char)dot.cb_jung1, (char)dot.cb_jung2,dot.ch_jung,1);
                             //ItemAdd((char)dot.cb_jung2,dot.ch_jung,2);
                             break;
                     }
@@ -83,11 +83,11 @@ public class Dot_Show extends AppCompatActivity {
                     //종성일 경우 쓰기.
                     switch (dot.whatcase % 3) {
                         case 0:
-                            ItemAdd((char)dot.cb_jong1,(char)dot.cb_jong2,dot.ch_jong,2);
+                            ItemAdd((char)dot.cb_jong1,(char)dot.cb_jong2,dot.ch_jong,1);
                             //ItemAdd((char)dot.cb_jong2,dot.ch_jong,2);
                             break;
                         case 1:
-                            ItemAdd((char)dot.cb_jong1,(char)0b0,dot.ch_jong,1);
+                            ItemAdd((char)dot.cb_jong1,(char)0b0,dot.ch_jong,0);
                             break;
                         default:
                             break;

@@ -164,6 +164,33 @@ public class File_Find extends AppCompatActivity {
                 alert.setMessage("이 전자책 파일을 변환 하시겠습니까?");
                 alert.show();
             }
+            //누른 파일이 dat 파일이면
+            else if(file.getName().endsWith(".dat"))
+            {
+                AlertDialog.Builder alert = new AlertDialog.Builder(File_Find.this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //확인 버튼 누르면 이 epbu 파일을 읽어 와야됨.
+                        //다른 액티비티에서 읽어 올려고 함.
+                        Intent intent = new Intent(
+                                getApplicationContext(), Dot_Show2.class);
+                        //파일 경로 전송.
+                        intent.putExtra("File_Path", Path);
+                        intent.putExtra("Root_Path",root);
+                        intent.putExtra("File_Name",Name);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //취소 버튼 눌렀을 때, 아무일도 없어도 됨.
+                    }
+                });
+                alert.setMessage("이 전자책 파일을 변환 하시겠습니까?");
+                alert.show();
+            }
             else {
                 new AlertDialog.Builder(this)
                         .setTitle("[" + file.getName() + "]")

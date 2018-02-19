@@ -2,14 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.first.Dot_Show">
-
-
+    tools:context="com.example.user.first.Dot_Show2">
     <GridView
-        android:id="@+id/Dot_Show"
+        android:id="@+id/Dot_Show2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -21,5 +18,4 @@
         android:numColumns="5"
         android:stretchMode="columnWidth"
         android:verticalSpacing="2dp"></GridView>
-
 </android.support.constraint.ConstraintLayout>

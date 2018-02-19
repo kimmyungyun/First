@@ -10,6 +10,7 @@ public class DotShowItem {
     private Drawable iconDrawable1;
     private Drawable iconDrawable2;
     private String titleStr;
+    private int Type;
 
     public void setIcon(Drawable icon){
         iconDrawable1 = icon;
@@ -20,6 +21,7 @@ public class DotShowItem {
     public void setTitle(String title){
         titleStr= title;
     }
+    public void setType(int type){Type = type;}
     public Drawable getIcon(){
         return this.iconDrawable1;
     }
@@ -29,5 +31,5 @@ public class DotShowItem {
     public String getTitle(){
         return this.titleStr;
     }
-
+    public int getType(){return Type;}
 }

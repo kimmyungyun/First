@@ -36,7 +36,7 @@ public class DotFile_Show extends AppCompatActivity {
                 //눌린 위치의 정보를 가져옴
                 ListViewItem ob = adapter.getItem(position);
                 //눌렀을 때 폴더 이동 함수를 호출
-                //itemClick(ob.getTitle(),ob.getDesc());
+                itemClick(ob.getTitle(),ob.getDesc());
             }
         });
         getDir(root+"/E_Dot");
@@ -58,13 +58,14 @@ public class DotFile_Show extends AppCompatActivity {
         //찾아낸 파일 및 폴더 리스트를 배열에다가 정리.
         for(int i=0; i<files.length;i++) {
             File f = files[i];
-            pathFiles.add(f.getPath());
-
             if (f.isDirectory())
-                itemFiles.add(f.getName() + "/");
+            {
+                //폴더일 경우 아무것도 안함.
+            }
             else {
                 //Toast.makeText(getApplicationContext(), f.getName(), Toast.LENGTH_LONG).show();
                 itemFiles.add(f.getName());
+                pathFiles.add(f.getPath());
             }
         }
         Move_folder();
@@ -79,7 +80,7 @@ public class DotFile_Show extends AppCompatActivity {
         else{
             final String Name = file.getName();
             final String Path = file.getPath();
-            //누른 파일이 텍스트 파일이면
+            //누른 파일이 Dat파일이면.
             if(file.getName().endsWith(".dat"))
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(DotFile_Show.this);
@@ -89,7 +90,7 @@ public class DotFile_Show extends AppCompatActivity {
                         //확인 버튼 누르면 이 텍스트 파일을 읽어 와야됨.
                         //다른 액티비티에서 읽어 올려고 함.
                         Intent intent = new Intent(
-                                getApplicationContext(), Dot_Show.class);
+                                getApplicationContext(), Dot_Show2.class);
                         //파일 경로 전송.
                         intent.putExtra("File_Path", Path);
                         intent.putExtra("Root_Path",root);

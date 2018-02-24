@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.first.DotFile_Show">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:id="@+id/File_FindName"
         android:layout_width="match_parent"
@@ -21,5 +24,7 @@
     <ListView
         android:id="@+id/DotFile_View"
         android:layout_width="match_parent"
+        android:layout_below="@+id/File_FindName"
         android:layout_height="match_parent"></ListView>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

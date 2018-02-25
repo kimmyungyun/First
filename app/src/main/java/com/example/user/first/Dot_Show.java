@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -127,7 +128,7 @@ public class Dot_Show extends AppCompatActivity {
 
 public class Dot_Show extends AppCompatActivity {
     private FileReader fr = null;
-    private GridView girdview;
+    private ListView listView;
     private DotShowAdapter adapter=null;
     FileInputStream fileInputStream;
     @Override
@@ -136,14 +137,14 @@ public class Dot_Show extends AppCompatActivity {
         setContentView(R.layout.activity_dot__show);
         adapter = new DotShowAdapter();
 
-        girdview = (GridView) findViewById(R.id.Dot_Show);
+        listView = (ListView) findViewById(R.id.Dot_Show_List);
         Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
 
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         String File_Path = intent.getStringExtra("File_Path");
         //그리드 뷰 어댑터 붙여주기.
-        girdview.setAdapter(adapter);
+        listView.setAdapter(adapter);
         int line;
         int jong,jung,cho;
         try {

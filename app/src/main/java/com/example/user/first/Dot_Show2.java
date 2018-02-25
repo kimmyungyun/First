@@ -32,16 +32,16 @@ public class Dot_Show2 extends AppCompatActivity {
         setContentView(R.layout.activity_dot__show2);
         adapter = new DotShowAdapter();
 
-        //girdview = (GridView) findViewById(R.id.Dot_Show2);
+        girdview = (GridView) findViewById(R.id.Dot_Show2);
         gridLayout =(GridLayout) findViewById(R.id.DotLayout2);
-        Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
 
 
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         String File_Path = intent.getStringExtra("File_Path");
         //그리드 뷰 어댑터 붙여주기.
-        //girdview.setAdapter(adapter);
+        girdview.setAdapter(adapter);
 
         int line;
 
@@ -52,6 +52,7 @@ public class Dot_Show2 extends AppCompatActivity {
 
             while((line = reader.read()) != -1) {
                 char A = (char)line;
+                /*
                 String Name="a";
                 for(int i=5;i>=0;i--)
                 {
@@ -65,6 +66,8 @@ public class Dot_Show2 extends AppCompatActivity {
                 Drawable tmp1 = ContextCompat.getDrawable(this,getResources().getIdentifier(Name, "drawable", this.getPackageName()));
                 img.setImageDrawable(tmp1);
                 gridLayout.addView(view);
+                */
+                ItemAdd((A));
             }
             reader.close();
         }catch(Exception e){}

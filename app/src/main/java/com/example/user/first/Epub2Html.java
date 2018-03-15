@@ -64,10 +64,12 @@ public class Epub2Html extends AppCompatActivity {
         File Root_File = new File(Root_Folder);
         if (!Root_File.exists())
             Root_File.mkdir();
-        //zip 폴더가 없으면 생성.
+        //zip 폴더가 없으면 생성 존재할겨우 1, 2, 3 등 숫자를 늘려가며 붙이며 찾을때까지.
+
+        Toast.makeText(getApplicationContext(), "zip폴더 생성전.", Toast.LENGTH_LONG).show();
+        Zip_Folder=makeFolder(Zip_Folder);
         File Zip_File = new File(Zip_Folder);
-        if (!Zip_File.exists())
-            Zip_File.mkdir();
+        Toast.makeText(getApplicationContext(), "zip폴더 생성후.", Toast.LENGTH_LONG).show();
         //이 위로는 이상 없음.
 
         File filePre = new File(Zip_Folder + "/", name1);
@@ -90,13 +92,14 @@ public class Epub2Html extends AppCompatActivity {
         String unzipfilepath = fileNow.getAbsolutePath();
         Toast.makeText(getApplicationContext(), unzipfilepath, Toast.LENGTH_LONG).show();
         try {
-            unZipZipfile(unzipfilepath, Foldername);
+            unZipZipfile(unzipfilepath, Foldername, name3);
             Toast.makeText(getApplicationContext(), "압축성공", Toast.LENGTH_LONG).show();
         } catch (Throwable e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "압축실패", Toast.LENGTH_LONG).show();
         }
-
+        //zip폴더 삭제`
+        Zip_File.delete();
 
     }
 
@@ -198,7 +201,7 @@ public class Epub2Html extends AppCompatActivity {
     위에서 압축된 zip파일을 해제하기 위해 만듬
     http://nowonbun.tistory.com/321
      */
-    public void unZipZipfile(String zipFileName, String unZipdirectory) throws Throwable {
+    public void unZipZipfile(String zipFileName, String unZipdirectory, String file_name) throws Throwable {
         File zipfile = new File(zipFileName);
         File unZipFileNCXFILE = null;
         FileInputStream unZipFileInputStream = null;
@@ -233,7 +236,8 @@ public class Epub2Html extends AppCompatActivity {
             }
             //압축이 끝나면
             unZipFileNCXFILE = new File(unZipCopyfileName);
-            xmlParse(unZipFileNCXFILE);
+            //String filenameama = Root_Folder+name3+".xml";
+            xmlParse(unZipFileNCXFILE, file_name);
         } catch (Throwable e) {
             throw e;
         } finally {
@@ -279,7 +283,7 @@ public class Epub2Html extends AppCompatActivity {
     xml파일을 파싱하기 위한 클래스
     ncx파일을 xml로 바꾼후 바꾼 xml파일을 text와 content부분만 파싱한다.
      */
-    public void xmlParse(File file) throws Throwable {
+    public void xmlParse(File file, String a) throws Throwable {
         ArrayList<String> xmlParse_htmllist = new ArrayList<String>();
         String fileName = file.getPath();
         BufferedReader xmlParseIn = new BufferedReader(new FileReader(fileName));
@@ -326,6 +330,16 @@ public class Epub2Html extends AppCompatActivity {
         xmlParseWriter.flush();
         xmlParseWriter.close();
         xmlParseIn.close();
+
+        Intent intent = new Intent(
+                getApplicationContext(), File_Read.class);
+        //파일 경로 전송.
+        intent.putExtra("File_Path", file.getParent() + "/" + "epub2html.txt");
+        intent.putExtra("Root_Path", Root_Folder);
+        intent.putExtra("File_Name", a);
+        startActivity(intent);
+        finish();
+
     }
 
 

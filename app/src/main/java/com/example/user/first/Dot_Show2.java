@@ -33,7 +33,8 @@ public class Dot_Show2 extends AppCompatActivity {
         adapter = new DotShowAdapter();
 
         girdview = (GridView) findViewById(R.id.Dot_Show2);
-        gridLayout =(GridLayout) findViewById(R.id.DotLayout2);
+        //gridLayout =(GridLayout) findViewById(R.id.DotLayout2);
+        //gridLayout =(GridLayout) findViewById(R.id.Dot);
         //Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
 
 

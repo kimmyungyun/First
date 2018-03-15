@@ -1,5 +1,6 @@
 package com.example.user.first;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -131,11 +134,15 @@ public class Dot_Show extends AppCompatActivity {
     private ListView listView;
     private DotShowAdapter adapter=null;
     FileInputStream fileInputStream;
+    ListView tmpListview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot__show);
         adapter = new DotShowAdapter();
+
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.listview_form,null);
 
         listView = (ListView) findViewById(R.id.Dot_Show_List);
         Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
@@ -144,15 +151,19 @@ public class Dot_Show extends AppCompatActivity {
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         String File_Path = intent.getStringExtra("File_Path");
         //그리드 뷰 어댑터 붙여주기.
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
         int line;
         int jong,jung,cho;
         try {
             fileInputStream = new FileInputStream(File_Path);
             Reader in = new InputStreamReader(fileInputStream, "euc-kr");
             BufferedReader reader = new BufferedReader(in);
-
             while((line = reader.read()) != -1) {
+                Log.d("읽는중","읽는중");
+                tmpListview = (ListView) view.findViewById(R.id.Listview_Form);
+                Log.d("읽는중","읽는중2");
+                tmpListview.setAdapter(adapter);
+                Log.d("읽는중","읽는중3");
                 if (line == 32)    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
                     ItemAdd((char)0b0,(char)0b0," ",0);
                 else if (line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
@@ -230,6 +241,10 @@ public class Dot_Show extends AppCompatActivity {
         Drawable tmp2 = ContextCompat.getDrawable(this,getResources().getIdentifier(Name2, "drawable", this.getPackageName()));
         Log.d("Drawable 값.", "ItemAdd: Name : "+tmp1 +" Name2 : "+tmp2);
         adapter.addItem(tmp1,tmp2, Hangul,type);
+        if(adapter.getCount() == 6)
+        {
+            listView.addView(tmpListview);
+        }
     }
 
 }

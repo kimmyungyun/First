@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class Dot_Show extends AppCompatActivity {
     private LayoutInflater inflater;
     private int x = 0;
     private int cols;
+    String File_Path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +49,24 @@ public class Dot_Show extends AppCompatActivity {
         float width = convertPixelsToDp(pixels,this);
         cols = (int)(width/70);
 
-        inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
-
-
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
-        String File_Path = intent.getStringExtra("File_Path");
+        File_Path = intent.getStringExtra("File_Path");
+
+        inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
+        Button b = (Button)findViewById(R.id.Button);
+        //Connect 버튼 클릭 시 블루투스로 전송.
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        Dot_Show.this, BlueTooth.class);
+                intent.putExtra("File_Path",File_Path);
+                startActivity(intent);
+            }
+        });
+
 
         int line;
         int jong,jung,cho;

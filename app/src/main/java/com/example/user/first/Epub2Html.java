@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 //import org.w3c.dom.Document;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 public class Epub2Html extends AppCompatActivity {
     String Root_Folder;
     String Zip_Folder;
+    String Root_Path;
     File FolderFile = null;
 
     @Override
@@ -56,19 +58,21 @@ public class Epub2Html extends AppCompatActivity {
         String name2 = File_Path.substring(0, File_Path.lastIndexOf("/"));
         //파일 이름만 따옴.
         String name3 = name1.substring(0, name1.lastIndexOf("."));
-
+        //E_dot폴더 경로
         Root_Folder = Root_Path + "/E_Dot";
+        //E_dot폴더 아래에있는 zip폴더 경로
         Zip_Folder = Root_Folder + "/Zip";
 
         //폴더가 없으면 생성
         File Root_File = new File(Root_Folder);
         if (!Root_File.exists())
             Root_File.mkdir();
-        //zip 폴더가 없으면 생성 존재할겨우 1, 2, 3 등 숫자를 늘려가며 붙이며 찾을때까지.
 
-        Toast.makeText(getApplicationContext(), "zip폴더 생성전.", Toast.LENGTH_LONG).show();
-        Zip_Folder=makeFolder(Zip_Folder);
+        //zip폴더 생성
         File Zip_File = new File(Zip_Folder);
+        Toast.makeText(getApplicationContext(), "zip폴더 생성전.", Toast.LENGTH_LONG).show();
+        if (!Zip_File.exists())
+            Zip_File.mkdir();
         Toast.makeText(getApplicationContext(), "zip폴더 생성후.", Toast.LENGTH_LONG).show();
         //이 위로는 이상 없음.
 
@@ -92,14 +96,14 @@ public class Epub2Html extends AppCompatActivity {
         String unzipfilepath = fileNow.getAbsolutePath();
         Toast.makeText(getApplicationContext(), unzipfilepath, Toast.LENGTH_LONG).show();
         try {
-            unZipZipfile(unzipfilepath, Foldername, name3);
+            unZipZipfile(unzipfilepath, Foldername, name3, Root_Path);
+            Zip_File.delete();
             Toast.makeText(getApplicationContext(), "압축성공", Toast.LENGTH_LONG).show();
         } catch (Throwable e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "압축실패", Toast.LENGTH_LONG).show();
         }
-        //zip폴더 삭제`
-        Zip_File.delete();
+
 
     }
 
@@ -201,7 +205,7 @@ public class Epub2Html extends AppCompatActivity {
     위에서 압축된 zip파일을 해제하기 위해 만듬
     http://nowonbun.tistory.com/321
      */
-    public void unZipZipfile(String zipFileName, String unZipdirectory, String file_name) throws Throwable {
+    public void unZipZipfile(String zipFileName, String unZipdirectory, String file_name, String RootPath) throws Throwable {
         File zipfile = new File(zipFileName);
         File unZipFileNCXFILE = null;
         FileInputStream unZipFileInputStream = null;
@@ -237,7 +241,7 @@ public class Epub2Html extends AppCompatActivity {
             //압축이 끝나면
             unZipFileNCXFILE = new File(unZipCopyfileName);
             //String filenameama = Root_Folder+name3+".xml";
-            xmlParse(unZipFileNCXFILE, file_name);
+            xmlParse(unZipFileNCXFILE, file_name, RootPath);
         } catch (Throwable e) {
             throw e;
         } finally {
@@ -283,11 +287,11 @@ public class Epub2Html extends AppCompatActivity {
     xml파일을 파싱하기 위한 클래스
     ncx파일을 xml로 바꾼후 바꾼 xml파일을 text와 content부분만 파싱한다.
      */
-    public void xmlParse(File file, String a) throws Throwable {
+    public void xmlParse(File file, String a, String RootPath) throws Throwable {
         ArrayList<String> xmlParse_htmllist = new ArrayList<String>();
         String fileName = file.getPath();
         BufferedReader xmlParseIn = new BufferedReader(new FileReader(fileName));
-        BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(file.getParent() + "/" + "epub2html.txt", true));
+        BufferedWriter xmlParseWriter = new BufferedWriter(new FileWriter(Root_Folder + "/" + a+ ".txt", true));
         String line = "", data = "";
         try {
 
@@ -327,17 +331,34 @@ public class Epub2Html extends AppCompatActivity {
         } catch (Throwable e) {
             throw e;
         }
+
+
+        File Zip_File = new File (Root_Folder + "/Zip");
+        Zip_File.delete();
+        Log.d("Path" ,Zip_File.getPath());
+        Toast.makeText(getApplicationContext(), "이전 " +  "zip파일 삭제 완료.", Toast.LENGTH_LONG).show();
+
+
         xmlParseWriter.flush();
         xmlParseWriter.close();
         xmlParseIn.close();
+        Toast.makeText(getApplicationContext(), "fileread실행전", Toast.LENGTH_LONG).show();
+
+        File epubtxtfile = new File (Root_Folder + "/" + a+ ".txt");
 
         Intent intent = new Intent(
                 getApplicationContext(), File_Read.class);
         //파일 경로 전송.
-        intent.putExtra("File_Path", file.getParent() + "/" + "epub2html.txt");
-        intent.putExtra("Root_Path", Root_Folder);
-        intent.putExtra("File_Name", a);
+
+        Log.d("Path" ,epubtxtfile.getPath());
+        Log.d("root" ,RootPath);
+        Log.d("name" ,epubtxtfile.getName());
+
+        intent.putExtra("File_Path", epubtxtfile.getPath());
+        intent.putExtra("Root_Path", RootPath);
+        intent.putExtra("File_Name", epubtxtfile.getName());
         startActivity(intent);
+
         finish();
 
     }

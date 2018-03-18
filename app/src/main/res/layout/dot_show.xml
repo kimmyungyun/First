@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#FCDBFD"
     >
+
     <RelativeLayout
         android:id="@+id/Dot_layout1"
         android:layout_width="70dp"
@@ -15,7 +16,6 @@
         android:layout_centerHorizontal="true"
         android:background="#FCDBFD"
         android:scaleType="fitXY"
-        android:layout_margin="5dp"
         />
     <TextView
         android:layout_width="match_parent"

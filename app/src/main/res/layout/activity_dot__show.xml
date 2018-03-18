@@ -7,24 +7,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.user.first.Dot_Show">
 
-
-    <GridView
-        android:id="@+id/Dot_Show"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#F7B5F8"
-        android:columnWidth="75dp"
-        android:gravity="center"
-        android:maxHeight="80dp"
-        android:numColumns="5"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="2dp"></GridView>
-<ListView
-    android:id="@+id/Dot_Show_List"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/Dot_Show"
     android:layout_width="match_parent"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_height="wrap_content"></ListView>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+</LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

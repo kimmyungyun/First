@@ -65,7 +65,7 @@ public class DotShowAdapter extends BaseAdapter {
                 convertView = inflater.inflate(R.layout.dot_show2,parent, false);
                 iconImageView2 = ViewHolderHelper.get(convertView, R.id.Dot_img2);
                 iconImageView3 = ViewHolderHelper.get(convertView, R.id.Dot_img3);
-                titleTextView2 = ViewHolderHelper.get(convertView, R.id.Dot_txt2);
+                titleTextView2 = ViewHolderHelper.get(convertView, R.id.dot_txt2);
 
                 //아이템 내 각 위젯에 데이터 반영
                 iconImageView2.setImageDrawable(listViewItem.getIcon());

@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="match_parent"
+    android:background="#FCDBFD"
+    >
+
     <ImageView
         android:id="@+id/Dot_img2"
-        android:layout_width="195dp"
+        android:layout_width="70dp"
         android:layout_height="110dp"
-        android:layout_centerHorizontal="true"
-        android:background="#FCDBFD"
-        android:gravity="start"
-        android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#FCDBFD"
+        android:scaleType="fitXY" />
 
 
     <ImageView
         android:id="@+id/Dot_img3"
-        android:layout_width="195dp"
+        android:layout_width="70dp"
         android:layout_height="110dp"
         android:layout_centerHorizontal="true"
-        android:background="#00FFFFFF"
-        android:gravity="end"
+        android:background="#FCDBFD"
         android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_toRightOf="@id/Dot_img2"/>
 
 
     <TextView
-        android:id="@+id/Dot_txt2"
-        android:layout_width="match_parent"
+        android:id="@+id/dot_txt2"
+        android:layout_width="140dp"
         android:layout_height="30dp"
         android:layout_below="@id/Dot_img2"
-        android:background="#00FFFFFF"
+        android:background="#FCDBFD"
         android:ellipsize="middle"
         android:gravity="center"
         android:padding="2dp"
@@ -41,4 +41,4 @@
         android:layout_alignLeft="@id/Dot_img2"
         android:layout_alignRight="@id/Dot_img3"
         />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

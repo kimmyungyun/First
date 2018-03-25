@@ -112,7 +112,7 @@ public class Dot_Show extends AppCompatActivity {
                             }
                             // 18.02.01 13:43 박종수 dot.ch_cho-> string: " "로 하여 빈칸이 나오게
                             x = x + 2;
-                            ItemAdd((char) dot.cb_cho1, (char) dot.cb_cho2, " ", 1);
+                            ItemAdd((char) dot.cb_cho1, (char) dot.cb_cho2, dot.ch_cho, 1);
                             break;
                     }
                     //중성일 경우 쓰기
@@ -204,7 +204,7 @@ public class Dot_Show extends AppCompatActivity {
             ImageView Img2 = (ImageView) tmpView.findViewById(R.id.Dot_img3);
             Img2.setImageDrawable(tmp2);
             TextView text = (TextView) tmpView.findViewById(R.id.dot_txt2);
-            text.setText("ㅃ");
+            text.setText(Hangul);
             parentLL.addView(tmpView);
         }
 

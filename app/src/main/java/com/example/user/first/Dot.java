@@ -140,21 +140,26 @@ public class Dot {
             // ㄱ
             case 0:
                 ch_cho = "ㄲ" ;
+                break;
             //ㄷ
             case 3:
                 ch_cho = "ㄸ" ;
+                break;
             //ㅂ
             case 7:
                 ch_cho = "ㅃ" ;
+                break;
             // ㅅ
             case 9:
                 ch_cho = "ㅆ" ;
+                break;
             // ㅈ
             case 12:
                 ch_cho = "ㅉ" ;
+                break;
 
-                default:
-                    ch_cho=" ";
+            default:
+                ch_cho=" ";
 
         }
     }

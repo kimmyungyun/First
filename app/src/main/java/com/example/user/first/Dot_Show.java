@@ -38,6 +38,7 @@ public class Dot_Show extends AppCompatActivity {
     private int Width;
     private int cols = 6;
     String File_Path;
+    String File_Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class Dot_Show extends AppCompatActivity {
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         File_Path = intent.getStringExtra("File_Path");
+        File_Name = intent.getStringExtra("File_Name");
 
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
@@ -64,6 +66,7 @@ public class Dot_Show extends AppCompatActivity {
                 Intent intent = new Intent(
                         Dot_Show.this, BlueTooth.class);
                 intent.putExtra("File_Path",File_Path);
+                intent.putExtra("File_Name",File_Name);
                 startActivity(intent);
             }
         });

@@ -74,6 +74,17 @@ public class Epub2Html extends AppCompatActivity {
             Zip_File.mkdir();
         //이 위로는 이상 없음.
 
+        File RootInName = new File(Root_Folder+"/"+name3+".dat");
+        if(RootInName.exists())
+            File_Delete(RootInName);
+        RootInName = new File(Root_Folder+"/"+name3+".txt");
+        if(RootInName.exists())
+            File_Delete(RootInName);
+
+
+
+
+
         File filePre = new File(Zip_Folder + "/", name1);
         File fileNow = new File(Zip_Folder + "/", name3 + ".zip");
 
@@ -159,43 +170,13 @@ public class Epub2Html extends AppCompatActivity {
             FolderFile = new File(foldername);
 
             //폴더가 존재하지 않으면 폴더생성
-            if (!FolderFile.exists())
-                FolderFile.mkdir();
-
-                //폴더가존재하면 폴더명1, 폴더명2 순으로 존재유무를 판별하고 존재하지않을때까지 숫자를 크게한후 폴더 생성
-            else {
+            if (FolderFile.exists())
                 File_Delete(FolderFile);
-                FolderFile.mkdir();
 
-                /*
-                AlertDialog.Builder alert = new AlertDialog.Builder(Epub2Html.this);
-                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (FolderFile.delete())
-                            Toast.makeText(getApplicationContext(), "이전 " + foldername + " 파일 삭제 완료.", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(getApplicationContext(), "이전 " + foldername + " 파일 삭제 실패.", Toast.LENGTH_LONG).show();
-                    }
-                }).setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //취소 버튼 눌렀을 때, 무슨일이 있어야할까..?
-                                int makeFoldercounti = 1;
-                                FolderFile = new File(foldername + String.valueOf(makeFoldercounti));
-                                while (!FolderFile.exists()) {
-                                    makeFoldercounti++;
-                                    FolderFile = new File(foldername + String.valueOf(makeFoldercounti));
-                                }
-                                FolderFile.mkdir();
-                            }
-                        });
-                alert.setMessage("이전 파일이 존재합니다. 삭제해도 되겠습니까?");
-                alert.setCancelable(false);
-                alert.show();
-                */
-            }
+
+            FolderFile.mkdir();
+                //폴더가존재하면 폴더 생성
+
 
         } catch (Exception e) {
         }

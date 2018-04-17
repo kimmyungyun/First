@@ -71,8 +71,9 @@ public class Dot_Show extends AppCompatActivity {
         int line;
         int jong,jung,cho;
         try {
-            fileInputStream = new FileInputStream(File_Path);
-            Reader in = new InputStreamReader(fileInputStream, "euc-kr");
+           // fileInputStream = new FileInputStream(File_Path);
+            //Reader in = new InputStreamReader(fileInputStream, "euc-kr");
+            FileReader in = new FileReader(File_Path);
             BufferedReader reader = new BufferedReader(in);
             while((line = reader.read()) != -1) {
                 Log.d("읽는중", "읽는중");
@@ -89,7 +90,12 @@ public class Dot_Show extends AppCompatActivity {
                     x++;
                     ItemAdd((char) 0b0, (char) 0b0, " ", 0);
                 }
-                else {
+                // 18.04.16 16:12 영어일 경우 분리
+                else if (line >= 65 && line <= 122){
+
+
+                }
+                else if(line >= 0xAC00 && line <= 0xD800) {
                     line = line - 0xAC00;
                     jong = line % 28;
                     jung = ((line - jong) / 28) % 21;

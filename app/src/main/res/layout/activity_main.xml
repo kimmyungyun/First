@@ -7,17 +7,11 @@
     android:background="#FFFFFF"
     tools:context="com.example.user.first.MainActivity">
 
-    <TextView
-        android:layout_width="95dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="118dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#00000000"
-        android:text="E_DOT"
-        android:textSize="30dp"
-        android:textColor="#000000"
-        />
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main"
+    android:scaleType="fitXY"
+    />
 
 </android.support.constraint.ConstraintLayout>

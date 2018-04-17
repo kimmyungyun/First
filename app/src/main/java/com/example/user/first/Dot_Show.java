@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -36,8 +35,10 @@ public class Dot_Show extends AppCompatActivity {
     private LinearLayout parentLL2;
     private LayoutInflater inflater;
     private int x = 0;
-    private int cols;
+    private int Width;
+    private int cols = 6;
     String File_Path;
+    String File_Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +47,14 @@ public class Dot_Show extends AppCompatActivity {
         //출처: http://qits.tistory.com/entry/안드로이드-디바이스-화면-크기-구하기 [Quiet, In The Storm...]
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int pixels = dm.widthPixels;
-        float width = convertPixelsToDp(pixels,this);
-        cols = (int)(width/70);
+        //float width = convertPixelsToDp(pixels,this);
+        Width = (int)(pixels/cols);
+        //Log.d("Name 값.", "ItemAdd: Name : "+width +" Name2 : "+Width);
 
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         File_Path = intent.getStringExtra("File_Path");
+        File_Name = intent.getStringExtra("File_Name");
 
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
@@ -63,6 +66,7 @@ public class Dot_Show extends AppCompatActivity {
                 Intent intent = new Intent(
                         Dot_Show.this, BlueTooth.class);
                 intent.putExtra("File_Path",File_Path);
+                intent.putExtra("File_Name",File_Name);
                 startActivity(intent);
             }
         });
@@ -76,7 +80,7 @@ public class Dot_Show extends AppCompatActivity {
             FileReader in = new FileReader(File_Path);
             BufferedReader reader = new BufferedReader(in);
             while((line = reader.read()) != -1) {
-                Log.d("읽는중", "읽는중");
+                //Log.d("읽는중", "읽는중");
                 if ((x % cols) == 0)    //만약 6칸 꽉찼다면 초기화.
                 {
                     Liner_Setting();
@@ -190,16 +194,24 @@ public class Dot_Show extends AppCompatActivity {
             else if((( B >> i) & 0b1)==0)
                 name2 = name2+"0";
         }
+
         //Log.d("Name 값.", "ItemAdd: Name : "+name +" Name2 : "+name2);
         Drawable tmp1 = ContextCompat.getDrawable(this,getResources().getIdentifier(name, "drawable", this.getPackageName()));
         Drawable tmp2 = ContextCompat.getDrawable(this,getResources().getIdentifier(name2, "drawable", this.getPackageName()));
         //Log.d("Drawable 값.", "ItemAdd: Name : "+tmp1 +" Name2 : "+tmp2);
         if(type == 0) {
+            // 설명.
+            //image_view.getLayoutParams().height = 20; 이런식으로 설정하면 될거에요.
+            //중요한건 height나 width를 설정하고 레이아웃에 image_view.requestLayout()라고 이미지뷰 변경을 적용해달라고 요청해야해요.
             View tmpView = inflater.inflate(R.layout.dot_show, null);
             ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img);
+            Img.getLayoutParams().width = Width;
             Img.setImageDrawable(tmp1);
+            Img.requestLayout();
             TextView text = (TextView) tmpView.findViewById(R.id.Dot_txt);
+            text.getLayoutParams().width = Width;
             text.setText(Hangul);
+            text.requestLayout();
             parentLL.addView(tmpView);
         }
         if(type == 1)
@@ -207,10 +219,18 @@ public class Dot_Show extends AppCompatActivity {
             View tmpView = inflater.inflate(R.layout.dot_show2, null);
             ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img2);
             Img.setImageDrawable(tmp1);
+            Img.getLayoutParams().width = Width;
+            Img.requestLayout();
+
             ImageView Img2 = (ImageView) tmpView.findViewById(R.id.Dot_img3);
             Img2.setImageDrawable(tmp2);
+            Img2.getLayoutParams().width = Width;
+            Img2.requestLayout();
+
             TextView text = (TextView) tmpView.findViewById(R.id.dot_txt2);
+            text.getLayoutParams().width = Width;
             text.setText(Hangul);
+            text.requestLayout();
             parentLL.addView(tmpView);
         }
 

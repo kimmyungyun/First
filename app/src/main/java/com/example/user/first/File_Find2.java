@@ -1,5 +1,4 @@
 package com.example.user.first;
-//파일 탐색기 교체될 액티비티 ( 이걸로 교체할거임)
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +39,7 @@ public class File_Find2 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //눌린 위치의 정보를 가져옴
-                ListViewItem ob = adapter.getItem(position);
+                ListViewItem2 ob = adapter.getItem(position);
                 //눌렀을 때 폴더 이동 함수를 호출
                 itemClick(ob.getTitle(),ob.getDesc());
             }
@@ -89,8 +87,6 @@ public class File_Find2 extends AppCompatActivity {
     }
     private void itemClick(String name, String path)
     {
-        //일단은 listview 어댑터에 넣은 파일 이름이랑 파일 위치만 띄웠는데 이것을 고쳐서
-        //txt파일 클릭시에 이 파일을 사용 할거냐는 다이얼로그를 띄우고, 그 파일을 점자 파일로 변환 시켜야함.
         //epub 파일의 경우 zip 파일로 바꾸고 해부해서 html 파일 찾아내기.
         File file = new File(path);
         if(file.isDirectory())
@@ -172,12 +168,12 @@ public class File_Find2 extends AppCompatActivity {
             // 180103 21시 dat파일을 누르면 dot_show가 실행되서 dat파일이 바뀜
             else if(file.getName().endsWith(".dat"))
             {
-                Intent intent = new Intent(
-                        getApplicationContext(), Dot_Show.class);
+                Intent intent = new Intent(getApplicationContext(), Dot_Show.class);
                 intent.putExtra("File_Name",Path);
                 startActivity(intent);
                 finish();
             }
+            //적용 되지 않는 파일 선택시.. 인데 없어도 되는 부분일 듯.
             else {
                 new AlertDialog.Builder(this)
                         .setTitle("[" + file.getName() + "]")

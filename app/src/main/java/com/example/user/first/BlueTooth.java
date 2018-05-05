@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -41,6 +42,7 @@ public class BlueTooth extends AppCompatActivity {
     String File_Name;
     //Dat파일 불러올 것
     File Send_File;
+    String File_Path;   //변환할 파일.
     private FileReader fr = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class BlueTooth extends AppCompatActivity {
         setContentView(R.layout.activity_blue_tooth);
         Intent intent = getIntent();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
+        File_Path = intent.getStringExtra("File_Path");
         File_Name = intent.getStringExtra("File_Name");
         //아직 방법을 몰라서 그러는데 블루투스 목록을 띄워줄 때 연결 안된 블루투스는 목록에 안뜸.
         //사용 방법을 알려 주던지, 아니면 한번 등록을 하면은 계속해서 자동으로 연결 해주는 방법을 찾아야할듯.
@@ -154,14 +157,13 @@ public class BlueTooth extends AppCompatActivity {
 
             //요 부분에다가 데이터 송신 하는거 넣어야 됨.
             int data;
-
             //전송할 파일 읽어오기
+            Log.d("Naem 값.", "ItemAdd: Name : "+File_Name);
+            Log.d("Path 값.", "ItemAdd: Name : "+File_Path);
 
             Send_File = new File(File_Name);
             try {
-
                 Toast.makeText(getApplicationContext(),"블루투스 연결 완료했습니다.",Toast.LENGTH_LONG);
-
                 // 전송을 시작합니다.
                 System.out.println("확인5");
                 data=0b10000000;    //요거가 데이터 전송 시작.
@@ -177,7 +179,6 @@ public class BlueTooth extends AppCompatActivity {
             }catch(Exception e)
             {            }
 
-
             // 전송을 끝.
             try{
                 data=0b01000000;    //요거가 데이터 전송 끝.
@@ -188,6 +189,7 @@ public class BlueTooth extends AppCompatActivity {
             }
             Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
             intent1.putExtra("File_Name",File_Name);
+            intent1.putExtra("File_Path",File_Path);
             startActivity(intent1);
             finish();
         }catch(Exception e){

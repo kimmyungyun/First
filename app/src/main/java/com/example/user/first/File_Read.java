@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -98,8 +97,10 @@ public class File_Read extends AppCompatActivity {
             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    intent1 = new Intent(File_Read.this, BlueTooth.class);
+                    //intent1 = new Intent(File_Read.this, BlueTooth.class);        //밑에꺼 지우고 이걸로 실행 해야됨. 잠깐 주석.
+                    intent1 = new Intent(File_Read.this, Dot_Show.class);
                     intent1.putExtra("File_Name",Root_Folder+"/"+FileName+".dat");
+                    intent1.putExtra("File_Path",File_Path);
                     startActivity(intent1);
                     finish();
                 }
@@ -149,9 +150,7 @@ public class File_Read extends AppCompatActivity {
                 alert.show();
             }
             else
-            {
                 ConvertFile();
-            }
 
         }catch(Exception e){
         }

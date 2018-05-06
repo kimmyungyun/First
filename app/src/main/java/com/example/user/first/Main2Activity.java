@@ -15,7 +15,6 @@ public class Main2Activity extends AppCompatActivity {
 
         ImageButton b = (ImageButton)findViewById(R.id.imageButton);
         ImageButton b2 = (ImageButton)findViewById(R.id.imageButton2);
-        ImageButton b3= (ImageButton)findViewById(R.id.imageButton3);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,15 +29,6 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         Main2Activity.this, DotFile_Show.class);
-                startActivity(intent);
-            }
-        });
-
-        b3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(
-                        Main2Activity.this, Image_Search.class);
                 startActivity(intent);
             }
         });

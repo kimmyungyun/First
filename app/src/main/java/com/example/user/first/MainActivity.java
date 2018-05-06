@@ -7,7 +7,6 @@ import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//master 부분
 public class MainActivity extends AppCompatActivity {
 
     private TimerTask mTask;

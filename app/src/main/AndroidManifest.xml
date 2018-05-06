@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -27,10 +28,22 @@
         <activity android:name=".Dot_Show" />
         <activity android:name=".Epub2Html" />
         <activity android:name=".File_Find2" />
+        <activity android:name=".Image_Search" />
         <activity android:name=".BlueTooth" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".DotFile_Show" />
         <activity android:name=".Dot_Show2"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 
 </manifest>

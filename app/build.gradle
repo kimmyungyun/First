@@ -22,6 +22,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+        configurations.all {
+            resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+        }
 }
 //http://link2me.tistory.com/m/1369 모듈 추가 방법.
 dependencies {
@@ -35,7 +38,7 @@ dependencies {
     implementation 'com.google.apis:google-api-services-vision:v1-rev369-1.23.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'org.jsoup:jsoup:1.10.3'
+    implementation 'org.jsoup:jsoup:1.10.3'
 
 
 }

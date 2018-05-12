@@ -130,7 +130,7 @@ public class DotFile_Show extends AppCompatActivity {
         for(int i=0;i<itemFiles.size();i++)
         {
             // 여기서 listview 에 넣음
-                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.e_dot),itemFiles.get(i),pathFiles.get(i));
         }
         adapter.notifyDataSetChanged();
     }

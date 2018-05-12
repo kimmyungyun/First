@@ -9,7 +9,7 @@
         android:layout_height="70dp"
         android:id="@+id/imageV1"
         android:layout_centerHorizontal="true"
-        android:background="#FCDBFD"
+        android:background="#FAF4DE"
     />
     <TextView
         android:layout_width="match_parent"

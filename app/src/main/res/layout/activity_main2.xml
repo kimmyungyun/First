@@ -4,38 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAF4DE"
     tools:context="com.example.user.first.Main2Activity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="#000000"
+            android:textSize="10dp"
+            />
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="118dp"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
         android:background="#00000000"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/braile" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파일 찾아 읽기"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            />
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
         android:background="#00000000"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@drawable/ic_stat_name" />
-
+        app:srcCompat="@drawable/ic_stat_name"
+        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="변환 파일 찾기"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            />
     <ImageButton
         android:id="@+id/imageButton3"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
         android:background="#00000000"
         android:scaleType="fitXY"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/camera" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카메라로 읽기"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

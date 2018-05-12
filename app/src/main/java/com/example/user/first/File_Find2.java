@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -168,8 +169,8 @@ public class File_Find2 extends AppCompatActivity {
             // 180103 21시 dat파일을 누르면 dot_show가 실행되서 dat파일이 바뀜
             else if(file.getName().endsWith(".dat"))
             {
-                Intent intent = new Intent(getApplicationContext(), Dot_Show.class);
-                intent.putExtra("File_Name",Path);
+                Intent intent = new Intent(getApplicationContext(), Dot_Show2.class);
+                intent.putExtra("File_Path",Path);
                 startActivity(intent);
                 finish();
             }
@@ -208,10 +209,12 @@ public class File_Find2 extends AppCompatActivity {
             // 여기서 listview 에 넣는데 확장자 명에 따라 그림을 구분 해줘야됨.
             if(itemFiles.get(i).endsWith(".txt"))
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.text),itemFiles.get(i),pathFiles.get(i));
-            else if(itemFiles.get(i).endsWith(".png") || itemFiles.get(i).endsWith(".jpg") || itemFiles.get(i).endsWith(".dat"))
+            else if(itemFiles.get(i).endsWith(".png") || itemFiles.get(i).endsWith(".jpg") )
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.etc),itemFiles.get(i),pathFiles.get(i));
             else if(itemFiles.get(i).endsWith(".epub"))
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.ic_action_name),itemFiles.get(i),pathFiles.get(i));
+            else if(itemFiles.get(i).endsWith(".dat"))
+                adapter.addItem(ContextCompat.getDrawable(this,R.drawable.e_dot),itemFiles.get(i),pathFiles.get(i));
             else
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.folder),itemFiles.get(i),pathFiles.get(i));
         }

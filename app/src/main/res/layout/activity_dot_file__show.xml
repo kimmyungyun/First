@@ -25,6 +25,7 @@
         android:id="@+id/DotFile_View"
         android:layout_width="match_parent"
         android:layout_below="@+id/File_FindName"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:background="#FAF4DE"></ListView>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

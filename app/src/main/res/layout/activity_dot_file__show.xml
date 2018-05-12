@@ -7,7 +7,8 @@
     tools:context="com.example.user.first.DotFile_Show">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FAf4DE">
     <TextView
         android:id="@+id/File_FindName"
         android:layout_width="match_parent"

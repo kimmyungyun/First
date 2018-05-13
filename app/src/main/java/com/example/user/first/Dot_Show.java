@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URLEncoder;
 
 // 외부 Xml 가져오는 법.
 //        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,8 +56,6 @@ public class Dot_Show extends AppCompatActivity {
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         File_Path = intent.getStringExtra("File_Path");
         File_Name = intent.getStringExtra("File_Name");
-        Log.d("File_Path2 값.", "ItemAdd: Name : "+File_Path);
-        Log.d("File_Name2 값.", "ItemAdd: Name : "+File_Name);
 
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
@@ -83,6 +82,7 @@ public class Dot_Show extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(in);
             while((line = reader.read()) != -1) {
                 //Log.d("읽는중", "읽는중");
+
                 if ((x % cols) == 0)    //만약 6칸 꽉찼다면 초기화.
                 {
                     Liner_Setting();

@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -125,6 +126,9 @@ public class File_Find2 extends AppCompatActivity {
                         intent.putExtra("File_Path", Path);
                         intent.putExtra("Root_Path",root);
                         intent.putExtra("File_Name",Name);
+                        Log.d("File_Path 값.", "ItemAdd: Name : "+Path);
+                        Log.d("Root_Path 값.", "ItemAdd: Name : "+root);
+                        Log.d("File_Name 값.", "ItemAdd: Name : "+Name);
                         startActivity(intent);
                         finish();
                     }

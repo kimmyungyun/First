@@ -36,7 +36,7 @@ public class Dot_Show extends AppCompatActivity {
     private LayoutInflater inflater;
     private int x = 0;
     private int Width;
-    private int cols = 6;
+    private int cols = 5;
     String File_Path;
     String File_Name;
     @Override
@@ -55,6 +55,8 @@ public class Dot_Show extends AppCompatActivity {
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         File_Path = intent.getStringExtra("File_Path");
         File_Name = intent.getStringExtra("File_Name");
+        Log.d("File_Path2 값.", "ItemAdd: Name : "+File_Path);
+        Log.d("File_Name2 값.", "ItemAdd: Name : "+File_Name);
 
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout)findViewById(R.id.Dot_Show);
@@ -204,11 +206,15 @@ public class Dot_Show extends AppCompatActivity {
             //image_view.getLayoutParams().height = 20; 이런식으로 설정하면 될거에요.
             //중요한건 height나 width를 설정하고 레이아웃에 image_view.requestLayout()라고 이미지뷰 변경을 적용해달라고 요청해야해요.
             View tmpView = inflater.inflate(R.layout.dot_show, null);
-            ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img);
+            //ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img);
+
+            ImageView Img = ViewHolderHelper.get(tmpView, R.id.Dot_img);
             Img.getLayoutParams().width = Width;
             Img.setImageDrawable(tmp1);
             Img.requestLayout();
-            TextView text = (TextView) tmpView.findViewById(R.id.Dot_txt);
+            //TextView text = (TextView) tmpView.findViewById(R.id.Dot_txt);
+
+            TextView text = ViewHolderHelper.get(tmpView, R.id.Dot_txt);
             text.getLayoutParams().width = Width;
             text.setText(Hangul);
             text.requestLayout();
@@ -217,15 +223,21 @@ public class Dot_Show extends AppCompatActivity {
         if(type == 1)
         {
             View tmpView = inflater.inflate(R.layout.dot_show2, null);
-            ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img2);
+            //ImageView Img = (ImageView) tmpView.findViewById(R.id.Dot_img2);
+
+            ImageView Img = ViewHolderHelper.get(tmpView, R.id.Dot_img2);
             Img.setImageDrawable(tmp1);
             Img.getLayoutParams().width = Width;
             Img.requestLayout();
 
-            ImageView Img2 = (ImageView) tmpView.findViewById(R.id.Dot_img3);
+            //ImageView Img2 = (ImageView) tmpView.findViewById(R.id.Dot_img3);
+
+            ImageView Img2 = ViewHolderHelper.get(tmpView, R.id.Dot_img3);
             Img2.setImageDrawable(tmp2);
             Img2.getLayoutParams().width = Width;
             Img2.requestLayout();
+
+            //TextView text = (TextView) tmpView.findViewById(R.id.dot_txt2);
 
             TextView text = (TextView) tmpView.findViewById(R.id.dot_txt2);
             text.getLayoutParams().width = Width;

@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.mozilla.universalchardet.UniversalDetector;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -71,6 +73,9 @@ public class Dot_Show extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
 
 
         int line;
@@ -264,4 +269,6 @@ public class Dot_Show extends AppCompatActivity {
         return dp;
 
     }
+
+
 }

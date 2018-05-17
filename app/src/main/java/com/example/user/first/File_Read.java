@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class File_Read extends AppCompatActivity {
             BufferedWriter bfw = new BufferedWriter(new FileWriter(Root_File1 + "/" + FileName + ".dat"));
             //텍스트 파일 읽기.
             fileInputStream = new FileInputStream(File_Path);
-            Reader in = new InputStreamReader(fileInputStream, "euc-kr");
+            Reader in = new InputStreamReader(fileInputStream, "utf-8");
             BufferedReader reader = new BufferedReader(in);
             while ((line = reader.read()) != -1) {
                 if (line == 32)    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
@@ -72,6 +73,7 @@ public class File_Read extends AppCompatActivity {
                 else if (line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
                     bfw.write(0b0);
                 else {
+                    Log.d("Line : ", Integer.toString(line));
                     line = line - 0xAC00;
                     jong = line % 28;
                     jung = ((line - jong) / 28) % 21;
@@ -255,8 +257,8 @@ public class File_Read extends AppCompatActivity {
         String content = getFileContent(filepath);
         content = content.replaceAll("EUC-KR", "UTF-8");
         content = content.replaceAll("EUC_KR", "UTF-8");
-        content = content.replaceAll("euc_kr", "UTF-8");
         content = content.replaceAll("euc-kr", "UTF-8");
+        content = content.replaceAll("euc_kr", "UTF-8");
 
         content = content.replaceAll("UTF-16LE", "UTF-8");
         content = content.replaceAll("UTF_16LE", "UTF-8");
@@ -278,7 +280,7 @@ public class File_Read extends AppCompatActivity {
         String encoding = find_txtEncoding(filepath);
 
         if (encoding == null) {
-            encoding = "EUC-KR";
+            encoding = "UTF-8";
         }
 
         FileInputStream fis = null;

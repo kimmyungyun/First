@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -81,7 +80,7 @@ public class Dot_Show extends AppCompatActivity {
         int line;
         int jong,jung,cho;
         try {
-           // fileInputStream = new FileInputStream(File_Path);
+            fileInputStream = new FileInputStream(File_Path);
             //Reader in = new InputStreamReader(fileInputStream, "euc-kr");
             FileReader in = new FileReader(File_Path);
             BufferedReader reader = new BufferedReader(in);
@@ -107,11 +106,16 @@ public class Dot_Show extends AppCompatActivity {
 
                 }
                 else if(line >= 0xAC00 && line <= 0xD800) {
+                    Log.d("Line : ", Integer.toString(line));
                     line = line - 0xAC00;
                     jong = line % 28;
                     jung = ((line - jong) / 28) % 21;
                     cho = (((line - jong) / 28) - jung) / 21;
+                    Log.d("cho : ", Integer.toString(cho));
+                    Log.d("jung : ", Integer.toString(jung));
+                    Log.d("jong : ", Integer.toString(jong));
                     Dot dot = new Dot(cho, jung, jong);
+
 
                     //초성일 경우 쓰기
                     switch (dot.whatcase / 6) {

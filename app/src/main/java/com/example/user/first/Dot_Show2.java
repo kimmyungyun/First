@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -40,7 +42,18 @@ public class Dot_Show2 extends AppCompatActivity {
         String File_Path = intent.getStringExtra("File_Path");
         //그리드 뷰 어댑터 붙여주기.
         girdview.setAdapter(adapter);
-
+        Button b = (Button)findViewById(R.id.Button);
+        //Connect 버튼 클릭 시 블루투스로 전송.
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        Dot_Show2.this, BlueTooth.class);
+                intent.putExtra("File_Path",File_Path);
+                startActivity(intent);
+                finish();
+            }
+        });
         int line;
 
         try {

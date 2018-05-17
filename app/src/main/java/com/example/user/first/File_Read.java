@@ -72,7 +72,7 @@ public class File_Read extends AppCompatActivity {
                     bfw.write(0b0);
                 else if (line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
                     bfw.write(0b0);
-                else {
+                else if(line >= 0xAC00 && line <= 0xD800) {
                     Log.d("Line : ", Integer.toString(line));
                     line = line - 0xAC00;
                     jong = line % 28;

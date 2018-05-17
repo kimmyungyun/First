@@ -70,6 +70,7 @@ public class Dot_Show extends AppCompatActivity {
                 intent.putExtra("File_Path",File_Path);
                 intent.putExtra("File_Name",File_Name);
                 startActivity(intent);
+                finish();
             }
         });
 

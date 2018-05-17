@@ -5,10 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.first.Dot_Show2">
-   <GridView
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F7B5F8">
+
+        <TextView
+            android:id="@+id/Dot_ShowName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#F7B5F8"
+            android:ellipsize="middle"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="Braille"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Connect"
+            android:textSize="10dp" />
+    </RelativeLayout>
+
+    <GridView
         android:id="@+id/Dot_Show2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#F7B5F8"
@@ -17,6 +46,10 @@
         android:maxHeight="80dp"
         android:numColumns="5"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="2dp"></GridView>
+        android:verticalSpacing="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        tools:layout_editor_absoluteX="0dp"></GridView>
+
+
 
 </android.support.constraint.ConstraintLayout>

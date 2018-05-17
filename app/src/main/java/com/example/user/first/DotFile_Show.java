@@ -129,7 +129,9 @@ public class DotFile_Show extends AppCompatActivity {
             adapter.addItem(ContextCompat.getDrawable(this,R.drawable.etc),"파일이 존재하지 않습니다.","");
         for(int i=0;i<itemFiles.size();i++)
         {
+
             // 여기서 listview 에 넣음
+            if(itemFiles.get(i).endsWith(".dat"))
                 adapter.addItem(ContextCompat.getDrawable(this,R.drawable.e_dot),itemFiles.get(i),pathFiles.get(i));
         }
         adapter.notifyDataSetChanged();

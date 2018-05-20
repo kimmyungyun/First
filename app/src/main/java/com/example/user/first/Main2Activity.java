@@ -1,6 +1,7 @@
 package com.example.user.first;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ public class Main2Activity extends AppCompatActivity {
         ImageButton b = (ImageButton)findViewById(R.id.imageButton);
         ImageButton b2 = (ImageButton)findViewById(R.id.imageButton2);
         ImageButton b3= (ImageButton)findViewById(R.id.imageButton3);
+        ImageButton b4 = (ImageButton)findViewById(R.id.imageButton4);
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +42,15 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         Main2Activity.this, Image_Search.class);
+                startActivity(intent);
+            }
+        });
+
+        b4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(
+                        Main2Activity.this, Tutorial.class);
                 startActivity(intent);
             }
         });

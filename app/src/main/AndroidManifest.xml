@@ -44,7 +44,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Dot_Show3"></activity>
+        <activity android:name=".Dot_Show3" />
+        <activity android:name=".Tutorial"></activity>
     </application>
 
 </manifest>

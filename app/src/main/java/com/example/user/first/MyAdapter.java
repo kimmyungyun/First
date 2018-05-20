@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by 명윤 on 2018-05-20.
+ * Recyclerview 어댑터 예시.
  */
 
 //http://dudmy.net/android/2017/06/23/consider-of-recyclerview/ 1차 참조.

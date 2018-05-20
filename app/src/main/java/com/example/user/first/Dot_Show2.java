@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import android.view.View;
@@ -18,30 +20,27 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 
 public class Dot_Show2 extends AppCompatActivity {
     private FileReader fr = null;
-    private GridView girdview;
-    private GridLayout gridLayout;
-    private DotShowAdapter adapter=null;
+    private RecyclerView recyclerView;
+    ArrayList<DotShowItem> dotShowItems;
     FileInputStream fileInputStream;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot__show2);
-        adapter = new DotShowAdapter();
-
-        girdview = (GridView) findViewById(R.id.Dot_Show2);
-        //gridLayout =(GridLayout) findViewById(R.id.DotLayout2);
-        //gridLayout =(GridLayout) findViewById(R.id.Dot);
-        //Toast.makeText(getApplicationContext(), "읽는 것.", Toast.LENGTH_LONG).show();
 
 
+        //레이아웃 초기화 그리드형태로 초기화.
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,5);
         Intent intent = getIntent();
+        //리스트 초기화
+        dotShowItems = new ArrayList<DotShowItem>();
         //파일에 대한 모든 경로가 들어있음. (파일명까지)
         String File_Path = intent.getStringExtra("File_Path");
-        //그리드 뷰 어댑터 붙여주기.
-        girdview.setAdapter(adapter);
         Button b = (Button)findViewById(R.id.Button);
         //Connect 버튼 클릭 시 블루투스로 전송.
         b.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +79,11 @@ public class Dot_Show2 extends AppCompatActivity {
                 */
                 ItemAdd((A));
             }
+            MyAdapter myAdapter = new MyAdapter(dotShowItems);
+
+            //recyclerview에 adapter 세팅.
+            recyclerView.setAdapter(myAdapter);
+            recyclerView.setLayoutManager(gridLayoutManager);
             reader.close();
         }catch(Exception e){}
     }
@@ -96,6 +100,10 @@ public class Dot_Show2 extends AppCompatActivity {
         Log.d("Name 값.", "ItemAdd: Name : "+Name);
         Drawable tmp1 = ContextCompat.getDrawable(this,getResources().getIdentifier(Name, "drawable", this.getPackageName()));
         Log.d("Drawable 값.", "ItemAdd: Name : "+tmp1);
-        adapter.addItem(tmp1,null, "",0);
+        DotShowItem item = new DotShowItem();
+        item.setIcon(tmp1);
+        item.setTitle(" ");
+        item.setType(0);
+        dotShowItems.add(item);
     }
 }

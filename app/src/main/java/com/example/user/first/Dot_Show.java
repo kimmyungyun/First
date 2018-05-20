@@ -21,9 +21,15 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URLEncoder;
+
+
+/************************************************************************
+ * 안사용하는 액티비티 입니다.
+ * 안사용하는 액티비티 입니다.
+ * 안사용하는 액티비티 입니다.
+ *
+ ************************************************************************/
+
 
 // 외부 Xml 가져오는 법.
 //        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -73,10 +79,6 @@ public class Dot_Show extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
 
         int line;
         int jong,jung,cho;

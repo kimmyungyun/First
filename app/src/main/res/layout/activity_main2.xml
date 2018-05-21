@@ -81,7 +81,7 @@
         android:background="#00000000"
         android:scaleType="fitXY"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/camera"
+        app:srcCompat="@drawable/tutorials"
         />
         <TextView
             android:layout_width="30dp"

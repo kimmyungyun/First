@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -61,9 +62,14 @@ public class Dot_Show3 extends AppCompatActivity {
             //Reader in = new InputStreamReader(fileInputStream, "euc-kr");
             FileReader in = new FileReader(File_Path);
             BufferedReader reader = new BufferedReader(in);
+            int qqq= 0; //파일 용량이 너무 커서 리사이클러뷰가 감당을 못함.(메모리 아웃나는듯)
             while((line = reader.read()) != -1) {
+                qqq++;
                 //Log.d("읽는중", "읽는중");
-
+                if (qqq == 250) {
+                    Toast.makeText(getApplicationContext(), "파일이 커 일부만 보여드립니다.", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 if (line == 32){    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
                     ItemAdd((char) 0b0, (char) 0b0, " ", 0);
                 }

@@ -17,6 +17,7 @@
 package com.example.user.first;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -54,12 +55,16 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +78,8 @@ public class Image_Search extends AppCompatActivity {
     private static final int MAX_LABEL_RESULTS = 10;
     private static final int MAX_DIMENSION = 1200;
 
+    private String root = Environment.getExternalStorageDirectory().getAbsolutePath();//최상위 경로
+    private String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/E_DOT";//텍스트 경로
     public static String Context = "임시";//저장될 string 내용
 
     private static final String TAG = Image_Search.class.getSimpleName();
@@ -108,9 +115,28 @@ public class Image_Search extends AppCompatActivity {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               // ConvertFile();
+
+                //오리지널 코드
                 Intent intent = new Intent(
                         Image_Search.this, File_Find2.class);
                 startActivity(intent);
+
+
+                /*
+               Intent intent = new Intent(
+                        getApplicationContext(), File_Read.class);
+                //파일 경로 전송.
+                intent.putExtra("File_Path", dirPath);
+                intent.putExtra("Root_Path",root);
+                intent.putExtra("File_Name","ITT.txt");
+                Log.d("File_Path 값.", "ItemAdd: Name : "+dirPath);
+                Log.d("Root_Path 값.", "ItemAdd: Name : "+root);
+                Log.d("File_Name 값.", "ItemAdd: Name : "+"ITT.txt");
+                startActivity(intent);
+                finish();*/
+
             }
         });
 
@@ -118,12 +144,103 @@ public class Image_Search extends AppCompatActivity {
         mMainImage = findViewById(R.id.main_image);
 
     }
+/*
+//txt 변환용
+public void ConvertFile() {
+    FileInputStream fileInputStream = null;
+    int line;
+    int jong, jung, cho;
 
+
+    try {
+        BufferedWriter bfw = new BufferedWriter(new FileWriter(dirPath + "/" + "Imagetotxt" + ".dat"));
+        //텍스트 파일 읽기.
+        fileInputStream = new FileInputStream(dirPath + "/" + "Imagetotxt.txt");
+        Reader in = new InputStreamReader(fileInputStream, "utf-8");
+        BufferedReader reader = new BufferedReader(in);
+        while ((line = reader.read()) != -1) {
+            if (line == 32)    //띄어쓰기 일 경우 어떻게 처리할지 생각 해봐야할듯
+                bfw.write(0b0);
+            else if (line == 13 || line == 10) //엔터인 경우인데 둘이 같이 붙어다님. 생각해봐야할듯.
+                bfw.write(0b0);
+            else if(line >= 0xAC00 && line <= 0xD800) {
+                Log.d("Line : ", Integer.toString(line));
+                line = line - 0xAC00;
+                jong = line % 28;
+                jung = ((line - jong) / 28) % 21;
+                cho = (((line - jong) / 28) - jung) / 21;
+                Dot dot = new Dot(cho, jung, jong);
+
+                //초성일 경우 쓰기
+                switch (dot.whatcase / 6) {
+                    case 0:
+                        bfw.write(dot.cb_cho1);
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        bfw.write(dot.cb_cho1);
+                        bfw.write(dot.cb_cho2);
+                        break;
+                }
+
+                //중성일 경우 쓰기
+                switch ((dot.whatcase % 6) / 3) {
+                    case 0:
+                        bfw.write(dot.cb_jung1);
+                        break;
+                    default:
+                        bfw.write(dot.cb_jung1);
+                        bfw.write(dot.cb_jung2);
+                        break;
+                }
+
+                switch (dot.whatcase % 3) {
+                    case 0:
+                        bfw.write(dot.cb_jong1);
+                        bfw.write(dot.cb_jong2);
+                        break;
+                    case 1:
+                        bfw.write(dot.cb_jong1);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        bfw.flush();
+        bfw.close();
+        reader.close();
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(Image_Search.this);
+        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //intent1 = new Intent(File_Read.this, BlueTooth.class);        //밑에꺼 지우고 이걸로 실행 해야됨. 잠깐 주석.
+                Intent intent1 = new Intent(Image_Search.this, Dot_Show3.class);
+                intent1.putExtra("File_Name", dirPath + "/" + "Imagetotxt" + ".dat");
+                intent1.putExtra("File_Path", dirPath);
+                startActivity(intent1);
+                finish();
+            }
+        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //취소 버튼 눌렀을 때, 아무일도 없어도 됨.
+            }
+        });
+        alert.setMessage("이 전자책 파일을 변환 하시겠습니까?");
+        alert.show();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}*/
 
 //파일 저장용
     public void save(View v) {
 
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ITT";//텍스트 경로
+        //String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/E_DOT";//텍스트 경로
         File file = new File(dirPath);
 
         // 일치하는 폴더가 없으면 생성
@@ -133,13 +250,13 @@ public class Image_Search extends AppCompatActivity {
         }
 // txt 파일 생성
 
-        File savefile = new File(dirPath + "/test.txt");
+        File savefile = new File(dirPath + "/ITT.txt");
         try {
             FileOutputStream fos = new FileOutputStream(savefile);
             fos.write(Context.getBytes());
             fos.close();
-            //Context="임시";
-            Toast.makeText(this,"Saved to"+dirPath,Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this,dirPath+"에 저장됨",Toast.LENGTH_LONG).show();
 
         } catch (IOException e) {//e.printStackTrace();}
 
@@ -152,7 +269,7 @@ public class Image_Search extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select a photo"),
+            startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요"),
                     GALLERY_IMAGE_REQUEST);
         }
     }
@@ -219,11 +336,11 @@ public class Image_Search extends AppCompatActivity {
                 mMainImage.setImageBitmap(bitmap);
 
             } catch (IOException e) {
-                Log.d(TAG, "Image picking failed because " + e.getMessage());
+                Log.d(TAG, "이미지 선택 실패 " + e.getMessage());
                 Toast.makeText(this, R.string.image_picker_error, Toast.LENGTH_LONG).show();
             }
         } else {
-            Log.d(TAG, "Image picker gave us a null image.");
+            Log.d(TAG, "이미지가 선택되지 않았습니다.");
             Toast.makeText(this, R.string.image_picker_error, Toast.LENGTH_LONG).show();
         }
     }
@@ -351,7 +468,7 @@ public class Image_Search extends AppCompatActivity {
                     e.getMessage());
         }
     }
-
+//이미지 리사이징
     private Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
 
         int originalWidth = bitmap.getWidth();
@@ -373,25 +490,14 @@ public class Image_Search extends AppCompatActivity {
     }
 //text내용 추출
     private static String convertResponseToString(BatchAnnotateImagesResponse response) {
-        //StringBuilder message = new StringBuilder("I found these things:\n\n");
 
-/*        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
-        if (labels != null) {
-            for (EntityAnnotation label : labels) {
-                message.append(String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription()));
-                message.append("\n");
-            }
-        } else {
-            message.append("nothing");
-        }
-*/
         String message = "출력결과:\n\n";
         List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
         if (labels != null) {
             message += labels.get(0).getDescription();
             Context = labels.get(0).getDescription();
         } else {
-            message += "nothing";
+            message += "출력결과 없음";
         }
         return message;
     }

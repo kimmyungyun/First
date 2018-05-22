@@ -153,9 +153,9 @@ public void ConvertFile() {
 
 
     try {
-        BufferedWriter bfw = new BufferedWriter(new FileWriter(dirPath + "/" + "Imagetotxt" + ".dat"));
+        BufferedWriter bfw = new BufferedWriter(new FileWriter(dirPath + "/" + "ITT" + ".dat"));
         //텍스트 파일 읽기.
-        fileInputStream = new FileInputStream(dirPath + "/" + "Imagetotxt.txt");
+        fileInputStream = new FileInputStream(dirPath + "/" + "ITT.txt");
         Reader in = new InputStreamReader(fileInputStream, "utf-8");
         BufferedReader reader = new BufferedReader(in);
         while ((line = reader.read()) != -1) {

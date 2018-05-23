@@ -33,6 +33,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -90,7 +91,7 @@ public class Image_Search extends AppCompatActivity {
 
     private TextView mImageDetails;
     private ImageView mMainImage;
-
+    private int status = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +110,45 @@ public class Image_Search extends AppCompatActivity {
                     .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
             builder.create().show();
         });
+        Button b7 = (Button)findViewById(R.id.imageButton7);
+        b7.bringToFront();
+        b7.invalidate();
+        b7.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(status == 0) {
+                    Toast.makeText(getApplicationContext(), "이미지를 선택하지 않았습니다.",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    File file = new File(dirPath);
 
+                    // 일치하는 폴더가 없으면 생성
+                    if (!file.exists()) {
+                        file.mkdirs();
+                        //Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                    }
+// txt 파일 생성
+
+                    File savefile = new File(dirPath + "/ITT.txt");
+                    try {
+                        FileOutputStream fos = new FileOutputStream(savefile);
+                        fos.write(Context.getBytes());
+                        fos.close();
+
+                        Toast.makeText(getApplicationContext(), dirPath + "에 저장됨", Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {//e.printStackTrace();}
+
+                    }
+
+                    Intent intent = new Intent(
+                            Image_Search.this, Dot_Show3.class);
+                    intent.putExtra("File_Path", dirPath + "/ITT.txt");
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
 //file_find2 호출
         ImageButton b4= (ImageButton)findViewById(R.id.imageButton4);
         b4.setOnClickListener(new View.OnClickListener() {
@@ -463,6 +502,7 @@ public void ConvertFile() {
         try {
             AsyncTask<Object, Void, String> labelDetectionTask = new LableDetectionTask(this, prepareAnnotationRequest(bitmap));
             labelDetectionTask.execute();
+            status = 1;
         } catch (IOException e) {
             Log.d(TAG, "failed to make API request because of other IOException " +
                     e.getMessage());

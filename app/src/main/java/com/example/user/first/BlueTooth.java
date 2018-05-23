@@ -187,7 +187,7 @@ public class BlueTooth extends AppCompatActivity {
             }catch(Exception e){
 
             }
-            Intent intent1 = new Intent(BlueTooth.this, Dot_Show.class);
+            Intent intent1 = new Intent(BlueTooth.this, Dot_Show3.class);
             intent1.putExtra("File_Name",File_Name);
             intent1.putExtra("File_Path",File_Path);
             startActivity(intent1);

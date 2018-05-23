@@ -21,7 +21,7 @@ public class Tutorial extends AppCompatActivity {
 
         //이미지뷰
         imageView = (ImageView)findViewById(R.id.imageView1);
-        imageView.setImageResource(R.drawable.a000000);
+        imageView.setImageResource(R.drawable.tutorial1);
         //왼쪽버튼 기능
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,27 +33,25 @@ public class Tutorial extends AppCompatActivity {
                         break;
                     case 1:
                         status = status - 1;
-                        imageView.setImageResource(R.drawable.a000000);
+                        imageView.setImageResource(R.drawable.tutorial1);
                         break;
                     case 2:
                         status = status - 1;
-                        imageView.setImageResource(R.drawable.a000001);
+                        imageView.setImageResource(R.drawable.tutorial4);
                         break;
                     case 3:
                         status = status - 1;
-                        imageView.setImageResource(R.drawable.a000010);
+                        imageView.setImageResource(R.drawable.tutorial2);
                         break;
                     case 4:
                         status = status - 1;
-                        imageView.setImageResource(R.drawable.a000011);
+                        imageView.setImageResource(R.drawable.tutorial5);
                         break;
                     case 5:
                         status = status - 1;
-                        imageView.setImageResource(R.drawable.a000100);
+                        imageView.setImageResource(R.drawable.tutorial3);
                         break;
                     default:
-                        status = status - 1;
-                        imageView.setImageResource(R.drawable.a000101);
                         break;
                 }
             }
@@ -66,31 +64,27 @@ public class Tutorial extends AppCompatActivity {
                 {
                     case 0:
                         status = status + 1;
-                        imageView.setImageResource(R.drawable.a000001);
+                        imageView.setImageResource(R.drawable.tutorial4);
                         break;
                     case 1:
                         status = status + 1;
-                        imageView.setImageResource(R.drawable.a000010);
+                        imageView.setImageResource(R.drawable.tutorial2);
                         break;
                     case 2:
                         status = status + 1;
-                        imageView.setImageResource(R.drawable.a000011);
+                        imageView.setImageResource(R.drawable.tutorial5);
                         break;
                     case 3:
                         status = status + 1;
-                        imageView.setImageResource(R.drawable.a000100);
+                        imageView.setImageResource(R.drawable.tutorial3);
                         break;
                     case 4:
                         status = status + 1;
-                        imageView.setImageResource(R.drawable.a000101);
+                        imageView.setImageResource(R.drawable.tutorial6);
                         break;
                     case 5:
-                        status = status + 1;
-                        imageView.setImageResource(R.drawable.a000111);
                         break;
                     default:
-                        status = status + 1;
-                        imageView.setImageResource(R.drawable.a001000);
                         break;
                 }
             }
